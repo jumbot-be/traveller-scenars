@@ -2,7 +2,7 @@
 
 Assets pour le scénario Traveller / Cepheus Engine "HARD VACUUM 01 : PIRATE BAIT" (Grape Ape Press), prêts pour owlbear.rodeo.
 
-Grille : 1 case = 1,5 m (44 px à l'échelle owlbear par défaut).
+Grille : 1 case = 1,5 m (44 px à l'échelle owlbear par défaut). Version 2 : toutes les pièces sont alignées sur les carrés (coordonnées en multiples de 44 px, murs sur les lignes de grille, portes de 22/44 px aux frontières de cases) — activer snap to grid.
 
 ## Contenu
 
@@ -30,7 +30,7 @@ Tokens 512 px fond transparent (dossier `tokens/`) :
 ## Import owlbear.rodeo
 
 1. Ouvrir la map comme image, couche Map.
-2. Grille : plans dessinés à 44 px par case de 1,5 m — activer la grille et ajuster si besoin.
+2. Grille : plans dessinés à 44 px par case de 1,5 m. Les pièces tombent pile sur les carrés — activer la grille et snap to grid.
 3. Importer les tokens comme assets, glisser sur la couche Tokens. Fond transparent, aucun nettoyage.
 
 ## Rappels scénario
@@ -47,4 +47,4 @@ Le dossier `generator/` contient le générateur complet (Python 3, stdlib uniqu
 cd generator && sh generate_all.sh
 ```
 
-Produit les 23 PNG dans le dossier courant. Rendu déterministe (seeds fixes).
+Produit les 23 PNG dans le dossier courant. Rendu déterministe (seeds fixes). Les cartes de bataille utilisent `wb_common.py` (coordonnées en cases de 44 px, murs centrés sur les lignes de grille).
