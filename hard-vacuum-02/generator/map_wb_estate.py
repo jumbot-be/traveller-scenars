@@ -3,55 +3,64 @@ from maps_lib import *
 from ship_common import finish
 from wb_common import *
 
-cv=Canvas(1496,1320,ss=2,bg=(20,24,32,255))
+# WHITE BEAR - PLAN D'ENSEMBLE AUX VRAIES DIMENSIONS
+# Memes surfaces que les cartes detaillees (couloir 1, couloir 2, pad)
+cv=Canvas(1804,1672,ss=2,bg=(20,24,32,255))
 
-# DOMES D'ATTERRISSAGE (r=2 cases, centres alignes)
-for cy,l1,l2 in ((264,'DOME 1','YACHT 100 T'),(616,'DOME 2','PAD LIBRE')):
-    cv.fill_circle(220,cy,88,(64,70,82))
-    cv.ring(220,cy,88,(216,220,228),4)
-    cv.ring(220,cy,72,(110,118,130),2)
-    cv.text(220-textw(l1,2)/2,cy-26,l1,C_TEXT,2)
-    cv.text(220-textw(l2,1)/2,cy+2,l2,C_DIM,1)
-# TUBES (1 case de large)
-for ty in (220,572):
-    cv.fill_rect(308,ty,88,44,(70,76,88)); cv.rect(308,ty,88,44,(216,220,228),3)
+# --- domes d'atterrissage (r = 4 cases) ---
+for cyy,l1,l2 in ((308,'DOME 1','YACHT 100 T'),(748,'DOME 2','PAD LIBRE')):
+    cv.fill_circle(220,cyy,176,(64,70,82))
+    cv.ring(220,cyy,176,(216,220,228),5)
+    cv.ring(220,cyy,140,(110,118,130),2)
+    cv.text(220-textw(l1,3)/2,cyy-40,l1,C_TEXT,3)
+    cv.text(220-textw(l2,1)/2,cyy+20,l2,C_DIM,1)
 
-# FOYER (cases 9,4 -> 12,15)
-groom(cv,9,4,3,11,'FOYER',doors=[('W',44,44),('W',396,44),('E',176,44)],maxsc=2)
+# --- tubes vers le foyer (1 case de large) ---
+for ty in (286,726):
+    cv.fill_rect(396,ty,44,44,(70,76,88)); cv.rect(396,ty,44,44,(216,220,228),3)
 
-# COULOIR 1 (cases 12,7 -> 26,10)
-gcor(cv,12,7,14,3,'COULOIR 1')
-wall_h(cv,308,528,1144)          # mur nord couloir 1
-wall_h(cv,440,528,1144)          # mur sud couloir 1
-cv.text(540,452,'EXPOSITIONS ARMURES SUR LES MURS',C_DIM,1)
+# --- foyer / sas cargo (3 x 12 cases) ---
+groom(cv,10,6,3,12,'FOYER',doors=[('W',22,44),('W',462,44),('E',264,44)],maxsc=2)
+irisv(cv,455,308); irisv(cv,455,748); irisv(cv,557,550)
 
-# COUDE / SALLE DE PLAISIR (cases 26,5 -> 30,12)
-groom(cv,26,5,4,7,None,doors=[('W',132,44),('S',88,44)],maxsc=1)
-station_label(cv,1232,378,162,'COUDE - SALLE DE PLAISIR',C_TEXT,1,1)
-irisv(cv,1159,374); irisv(cv,1254,557)
+# --- couloir 1 (18 x 3 cases) ---
+gcor(cv,13,11,18,3,'COULOIR 1')
 
-# COULOIR 2 (cases 27,12 -> 30,24)
-gcor(cv,27,12,3,12,'COULOIR 2')
-wall_v(cv,1188,528,1056,[(748,44)])          # mur ouest couloir 2 (porte Tsygankov)
-wall_v(cv,1320,528,1056,[(704,44),(880,44)]) # mur est couloir 2 (personnel, cuisine/salon)
+# --- 6 cabines individuelles de luxe (3x3 cases) ---
+for i in range(6):
+    groom(cv,13+3*i,8,3,3,'CAB %d'%(i+1),doors=[('S',66,22)],maxsc=1)
 
-# SALLE DE CONTROLE (cases 26,24 -> 30,28)
-groom(cv,26,24,4,4,'CONTROLE',doors=[('N',88,44)],maxsc=2)
+# --- expositions armures (18 x 3 cases) ---
+groom(cv,13,14,18,3,'EXPOSITIONS',doors=[('N',374,44)],maxsc=1)
 
-# CABINE TSYGANKOV (cases 25,16 -> 27,19)
-groom(cv,25,16,2,3,'TSYGANKOV',doors=[('E',44,44)],maxsc=1)
+# --- coude / salle de plaisir (6 x 11 cases) ---
+groom(cv,31,5,6,11,'COUDE - SALLE DE PLAISIR',doors=[('W',308,44),('S',176,44)],maxsc=1)
+irisv(cv,1379,550); irisv(cv,1562,689)
 
-# CABINES PERSONNEL (cases 30,15 -> 32,18)
-groom(cv,30,15,2,3,'PERSONNEL',doors=[('W',44,44)],maxsc=1)
+# --- couloir 2 (3 x 14 cases) ---
+gcor(cv,34,16,3,14,'COULOIR 2')
 
-# CUISINE + SALON (cases 30,19 -> 32,22)
-groom(cv,30,19,2,3,'CUISINE SALON',doors=[('W',44,44)],maxsc=1,minsc=1)
+# --- cabine Tsygankov (4 x 5 cases) ---
+groom(cv,30,16,4,5,'TSYGANKOV',doors=[('E',88,44)],maxsc=1)
+
+# --- 3 cabines du personnel (3x3 cases empilees) ---
+for j in range(3):
+    groom(cv,31,21+3*j,3,3,'CAB P%d'%(j+1),doors=[('E',66,22)],maxsc=1)
+
+# --- cuisine (3 x 6 cases) ---
+groom(cv,37,16,3,6,'CUISINE',doors=[('W',110,44)],maxsc=1)
+
+# --- salon (3 x 8 cases) ---
+groom(cv,37,22,3,8,'SALON',doors=[('W',154,44)],maxsc=1)
+
+# --- salle de controle (6 x 7 cases) ---
+groom(cv,32,30,6,7,'CONTROLE',doors=[('N',132,44)],maxsc=2)
+irisv(cv,1562,1335)
 
 # notes
-cv.text(88,1250,'SCHEMA D\'ENSEMBLE - CARTES DETAILLEES: COULOIR 1, COULOIR 2, PAD D\'ATTERRISSAGE',C_DIM,1)
-cv.text(88,1274,'VANNES IRIS AUX DEUX EXTREMITES DU COUDE - SALLE DE PLAISIR SCELLABLE',C_DIM,1)
+cv.text(88,1644,'MEMES SURFACES QUE LES CARTES DETAILLEES (COULOIR 1, COULOIR 2) ET LA VUE DE SURFACE - 1 CASE = 1,5 M',C_DIM,1)
 
-grid_overlay(cv,0,0,1496,1320)
-finish(cv,'WHITE BEAR - DOMAINE TSYGANKOV','TG-14 "CHICHARITO" - VUE D\'ENSEMBLE EN L - 2 DOMES + COULOIRS - 1 CASE = 1,5 M')
+grid_overlay(cv,44,132,1716,1496)
+finish(cv,'WHITE BEAR - DOMAINE TSYGANKOV - PLAN D\'ENSEMBLE','TG-14 "CHICHARITO" - ANCIEN AVANT-POSTE TL11 EN L - 2 DOMES + TUBES + COULOIRS')
 save_png('whitebear_estate_map.png',cv)
 print('estate ok')

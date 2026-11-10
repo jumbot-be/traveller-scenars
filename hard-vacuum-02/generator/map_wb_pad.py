@@ -13,48 +13,69 @@ def yacht_topdown(cv,cx,top,L,Wd):
     cv.fill_rect(cx-Wd*0.07,top+L*0.07,Wd*0.14,L*0.1,glass)
     cv.fill_rect(cx-Wd*0.1,top+L*0.92,Wd*0.2,L*0.05,(70,76,86))
 
-cv=Canvas(1760,1232,ss=2,bg=(8,10,14,255))
+# WHITE BEAR - SURFACE - EMPREINTE EXACTE DU DOMAINE
+cv=Canvas(1804,1760,ss=2,bg=(8,10,14,255))
 stars(cv,7,160)
 
-# sol lunaire + horizon
-cv.fill_rect(0,176,1760,1056,(56,54,58))
-cv.line(0,176,1760,176,(90,88,92),2)
-for (cxx,cyy,r) in ((170,980,64),(1420,320,50),(1560,760,76),(900,1090,42),(220,320,36),(1300,1060,48),(1620,980,40),(120,760,30)):
+# ciel + sol lunaire
+cv.fill_rect(0,88,1804,1672,(56,54,58))
+cv.line(0,88,1804,88,(90,88,92),2)
+for (cxx,cyy,r) in ((1450,120,36),(1720,150,28),(220,528,26),(200,1450,60),(600,1520,50),(1000,1440,44),(900,1560,40),(1200,1560,48),(250,1050,40),(150,1150,36)):
     cv.fill_circle(cxx,cyy,r,(48,46,50))
     cv.ring(cxx,cyy,r,(64,62,66),3)
 
-# DOMES (r=4 cases)
-for cyy,lbl in ((616,'DOME 1'),(924,'DOME 2')):
-    cv.fill_circle(440,cyy,176,(64,70,82))
-    cv.ring(440,cyy,176,(216,220,228),5)
-    cv.ring(440,cyy,140,(110,118,130),2)
+# --- empreinte du domaine (toits, memes surfaces que l'interieur) ---
+SLAB=(74,80,92); SLABD=(40,46,54)
+def slab(gx,gy,gw,gh):
+    x,y,w,h=gx*CELL,gy*CELL,gw*CELL,gh*CELL
+    cv.fill_rect(x,y,w,h,SLAB); cv.rect(x,y,w,h,SLABD,3)
+slab(10,6,3,12)      # foyer
+slab(13,11,18,3)     # couloir 1
+for i in range(6): slab(13+3*i,8,3,3)   # cabines
+slab(13,14,18,3)     # expositions
+slab(31,5,6,11)      # coude
+slab(34,16,3,14)     # couloir 2
+slab(30,16,4,5)      # Tsygankov
+for j in range(3): slab(31,21+3*j,3,3) # personnel
+slab(37,16,3,6)      # cuisine
+slab(37,22,3,8)      # salon
+slab(32,30,6,7)      # controle
+for ty in (286,726):  # tubes
+    cv.fill_rect(396,ty,44,44,(70,76,88)); cv.rect(396,ty,44,44,(216,220,228),3)
 
-# TUBES VERS FOYER
-for ty in (594,902):
-    cv.fill_rect(616,ty,88,44,(70,76,88)); cv.rect(616,ty,88,44,(216,220,228),3)
+# --- domes (r = 4 cases) avec vaisseaux ---
+for cyy in (308,748):
+    cv.fill_circle(220,cyy,176,(64,70,82))
+    cv.ring(220,cyy,176,(216,220,228),5)
+    cv.ring(220,cyy,140,(110,118,130),2)
+yacht_topdown(cv,220,178,260,150)
+cv.text(220-textw('YACHT 100 T',1)/2,152,'YACHT 100 T',C_TEXT,1)
+cv.fill_rect(208,438,24,46,(90,96,108)); cv.rect(208,438,24,46,(50,56,64),2)
+corpse(cv,220,506)
+cv.text(240,500,'PILOTE',C_DIM,1)
+ship_topdown(cv,220,648,200,170,'courier')
+cv.text(220-textw('HOT COMET',1)/2,588,'HOT COMET',C_TEXT,1)
+irisv(cv,455,308); irisv(cv,455,748)
 
-# FOYER (cases 16,12 -> 19,24)
-groom(cv,16,12,3,12,'FOYER',doors=[('W',66,44),('W',374,44),('E',110,44)],maxsc=2)
-irisv(cv,720,616); irisv(cv,720,924)
+# --- etiquettes ---
+def lab(cx_,cy_,s,col=C_TEXT):
+    cv.text(cx_-textw(s,1)/2,cy_,s,col,1)
+lab(220,106,'DOME 1 - YACHT 100 T')
+lab(220,936,'DOME 2 - HOT COMET (PAD LIBRE)')
+lab(506,522,'FOYER')
+lab(968,534,'COULOIR 1')
+lab(968,404,'6 CABINES')
+lab(968,668,'EXPOSITIONS')
+lab(1496,452,'COUDE')
+lab(1562,990,'COULOIR 2')
+lab(1408,806,'TSYGANKOV')
+lab(1430,987,'CAB P1'); lab(1430,1119,'CAB P2'); lab(1430,1251,'CAB P3')
+lab(1694,826,'CUISINE')
+lab(1694,1134,'SALON')
+lab(1540,1460,'CONTROLE')
+cv.text(620,1620,'PORTE DU DOME 1 VERROUILLEE DEPUIS LA SALLE DE CONTROLE',C_DIM,1)
 
-# COULOIR 1 (esquisse, vers le domaine)
-groom(cv,19,14,5,3,'COULOIR 1',doors=[('W',22,44)],col=(64,70,82),maxsc=1)
-cv.text(1064,672,'VERS COUDE + DOMAINE',C_DIM,1)
-
-# YACHT + RAMPE + PILOTE (dome 1)
-yacht_topdown(cv,440,470,260,150)
-cv.text(440-textw('YACHT 100 T',1)/2,452,'YACHT 100 T',C_TEXT,1)
-cv.fill_rect(428,730,24,62,(90,96,108)); cv.rect(428,730,24,62,(50,56,64),2)
-corpse(cv,440,812)
-cv.text(456,806,'PILOTE',C_DIM,1)
-
-# HOT COMET (dome 2)
-ship_topdown(cv,440,824,200,170,'courier')
-cv.text(440-textw('HOT COMET',1)/2,806,'HOT COMET',C_TEXT,1)
-
-cv.text(700,1122,'PORTE DU DOME 1 VERROUILLEE DEPUIS LA SALLE DE CONTROLE',C_DIM,1)
-
-grid_overlay(cv,0,176,1760,1056)
-title(cv,'WHITE BEAR - PAD D\'ATTERRISSAGE','TG-14 - SURFACE - YACHT (DOME 1) - HOT COMET (DOME 2) - TUBES VERS FOYER - 1 CASE = 1,5 M')
+grid_overlay(cv,0,88,1804,1540)
+title(cv,'WHITE BEAR - SURFACE - DOMES + DOMAINE','TG-14 - EMPREINTE EXACTE DU DOMAINE (MEMES SURFACES QUE LES CARTES INTERIEURES) - 1 CASE = 1,5 M')
 save_png('whitebear_pad_map.png',cv)
 print('pad ok')
