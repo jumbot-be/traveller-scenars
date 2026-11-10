@@ -35,8 +35,8 @@ for i in range(6): slab(13+3*i,8,3,3)   # cabines
 slab(13,14,18,3)     # expositions
 slab(31,5,6,11)      # coude
 slab(34,16,3,14)     # couloir 2
-slab(30,16,4,5)      # Tsygankov
-for j in range(3): slab(31,21+3*j,3,3) # personnel
+slab(30,25,4,5)      # Tsygankov
+for j in range(3): slab(31,16+3*j,3,3) # personnel
 slab(37,16,3,6)      # cuisine
 slab(37,22,3,8)      # salon
 slab(32,30,6,7)      # controle
@@ -68,8 +68,8 @@ lab(968,404,'6 CABINES')
 lab(968,668,'EXPOSITIONS')
 lab(1496,452,'COUDE')
 lab(1562,990,'COULOIR 2')
-lab(1408,806,'TSYGANKOV')
-lab(1430,987,'CAB P1'); lab(1430,1119,'CAB P2'); lab(1430,1251,'CAB P3')
+lab(1416,1207,'TSYGANKOV')
+lab(1430,747,'CAB P1'); lab(1430,879,'CAB P2'); lab(1430,1011,'CAB P3')
 lab(1694,826,'CUISINE')
 lab(1694,1134,'SALON')
 lab(1540,1460,'CONTROLE')

@@ -41,11 +41,11 @@ irisv(cv,1379,550); irisv(cv,1562,689)
 gcor(cv,34,16,3,14,'COULOIR 2')
 
 # --- cabine Tsygankov (4 x 5 cases) ---
-groom(cv,30,16,4,5,'TSYGANKOV',doors=[('E',88,44)],maxsc=1)
+groom(cv,30,25,4,5,'TSYGANKOV',doors=[('E',88,44),('S',132,22)],maxsc=1)
 
 # --- 3 cabines du personnel (3x3 cases empilees) ---
 for j in range(3):
-    groom(cv,31,21+3*j,3,3,'CAB P%d'%(j+1),doors=[('E',66,22)],maxsc=1)
+    groom(cv,31,16+3*j,3,3,'CAB P%d'%(j+1),doors=[('E',66,22)],maxsc=1)
 
 # --- cuisine (3 x 6 cases) ---
 groom(cv,37,16,3,6,'CUISINE',doors=[('W',110,44)],maxsc=1)
@@ -54,7 +54,8 @@ groom(cv,37,16,3,6,'CUISINE',doors=[('W',110,44)],maxsc=1)
 groom(cv,37,22,3,8,'SALON',doors=[('W',154,44)],maxsc=1)
 
 # --- salle de controle (6 x 7 cases) ---
-groom(cv,32,30,6,7,'CONTROLE',doors=[('N',132,44)],maxsc=2)
+groom(cv,32,30,6,7,'CONTROLE',doors=[('N',132,44),('N',44,22)],maxsc=2)
+cv.fill_rect(1452,1317,22,7,C_GOLD)   # passage secret Tsygankov <-> controle
 irisv(cv,1562,1335)
 
 # notes

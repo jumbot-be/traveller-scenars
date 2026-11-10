@@ -7,7 +7,7 @@ Maps de bataille et tokens pour le scénario Traveller/Cepheus "Hard Vacuum 02 :
 Maps (grille 44 px, 1 case = 1,5 m, toutes les pièces alignées sur les carrés) :
 - `whitebear_estate_map.png` - plan d'ensemble aux vraies dimensions (44 px/case) : 2 dômes, tubes, couloirs, coude, salle de contrôle
 - `whitebear_deck1_map.png` - couloir 1 : foyer/SAS, 6 cabines de luxe individuelles, expositions d'armures, salle de plaisir (10 invités morts)
-- `whitebear_deck2_map.png` - couloir 2 : cabine de Tsygankov (salle de panique cachée dans le dressing), 3 cabines doubles, cuisine (3 corps), salon, salle de contrôle + SAS surface
+- `whitebear_deck2_map.png` - couloir 2 : 3 cabines doubles du personnel à gauche, cabine de Tsygankov collée à la salle de contrôle (passage secret caché dans le dressing), cuisine (3 corps), salon, salle de contrôle + SAS surface
 - `whitebear_pad_map.png` - surface : empreinte exacte du domaine (toits alignés sur les cartes intérieures), dôme 1 (yacht + rampe + corps du pilote), dôme 2 (Hot Comet), tubes vers foyer
 
 Tokens 512 px fond transparent :
@@ -37,7 +37,7 @@ Le plan d'ensemble, les cartes détaillées et la vue de surface partagent exact
 - 10 invités morts dans la salle de plaisir ; 4 autres corps : ingénieur dans le couloir 2 (hors salle de contrôle verrouillée), mécanicien/steward/membre d'équipage du yacht dans la cuisine.
 - Porte du dôme verrouillée depuis la salle de contrôle ; vannes iris aux deux extrémités du coude (salle de plaisir scellable).
 - Salle de contrôle : Modèle 2/fib, capteurs DM-2 ; casier d'armes : 2 fusils accélérateurs, 2 pistolets snub, 2 combinaisons vacc, 3 trousses d'outils.
-- Salle de panique cachée dans le dressing de Tsygankov : porte blindée, verrou électronique.
+- Passage secret entre le dressing de Tsygankov et la salle de contrôle : porte blindée, verrou électronique (la salle de contrôle sert de salle de panique).
 
 ## Générateur
 
