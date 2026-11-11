@@ -13,7 +13,9 @@ def yacht_topdown(cv,cx,top,L,Wd):
     cv.fill_rect(cx-Wd*0.07,top+L*0.07,Wd*0.14,L*0.1,glass)
     cv.fill_rect(cx-Wd*0.1,top+L*0.92,Wd*0.2,L*0.05,(70,76,86))
 
-# WHITE BEAR - SURFACE - EMPREINTE EXACTE DU DOMAINE
+# WHITE BEAR - SURFACE - VUE EXTERIEURE
+# Empreinte reelle du domaine (memes surfaces que les cartes interieures)
+# mais aucun detail d'interieur : silhouette unie + panneaux exterieurs
 cv=Canvas(1804,1760,ss=2,bg=(8,10,14,255))
 stars(cv,7,160)
 
@@ -24,26 +26,31 @@ for (cxx,cyy,r) in ((1450,120,36),(1720,150,28),(220,528,26),(200,1450,60),(600,
     cv.fill_circle(cxx,cyy,r,(48,46,50))
     cv.ring(cxx,cyy,r,(64,62,66),3)
 
-# --- empreinte du domaine (toits, memes surfaces que l'interieur) ---
-SLAB=(74,80,92); SLABD=(40,46,54)
-def slab(gx,gy,gw,gh):
-    x,y,w,h=gx*CELL,gy*CELL,gw*CELL,gh*CELL
-    cv.fill_rect(x,y,w,h,SLAB); cv.rect(x,y,w,h,SLABD,3)
-slab(10,6,3,12)      # foyer
-slab(13,11,18,3)     # couloir 1
-for i in range(6): slab(13+3*i,8,3,3)   # cabines
-slab(13,14,18,3)     # expositions
-slab(31,5,6,11)      # coude
-slab(34,16,3,14)     # couloir 2
-slab(30,25,4,5)      # Tsygankov
-for j in range(3): slab(31,16+3*j,3,3) # personnel
-slab(37,16,3,6)      # cuisine
-slab(37,22,3,8)      # salon
-slab(32,30,6,7)      # controle
-for ty in (286,726):  # tubes
+# --- tubes vers les domes (exterieur, alignes) ---
+for ty in (286,726):
     cv.fill_rect(396,ty,44,44,(70,76,88)); cv.rect(396,ty,44,44,(216,220,228),3)
 
-# --- domes (r = 4 cases) avec vaisseaux ---
+# --- silhouette exterieure du domaine (empreinte reelle, aucun detail interieur) ---
+BLDG=[(572,352),(1364,352),(1364,220),(1628,220),(1628,704),(1760,704),(1760,1320),
+      (1672,1320),(1672,1628),(1408,1628),(1408,1320),(1320,1320),(1320,1100),
+      (1364,1100),(1364,748),(572,748),(572,792),(440,792),(440,264),(572,264)]
+cv.fill_polygon(BLDG,(74,80,92))
+cv.poly_outline(BLDG,(40,46,54),4)
+# panneaux de coque exterieurs (uniformes, ne revelent aucune piece)
+greeble(cv,600,370,700,360,(86,92,104),(52,58,68),16,26)
+greeble(cv,1380,240,230,440,(86,92,104),(52,58,68),9,26)
+greeble(cv,1380,720,110,360,(86,92,104),(52,58,68),6,24)
+greeble(cv,1510,720,110,580,(86,92,104),(52,58,68),8,24)
+greeble(cv,1640,720,110,580,(86,92,104),(52,58,68),8,24)
+greeble(cv,1420,1340,240,270,(86,92,104),(52,58,68),7,26)
+# details exterieurs : sas surface + antenne
+airlock_ext(cv,1688,1480,15)
+cv.line(1700,1500,1700,1440,(150,158,168),4)
+cv.fill_circle(1700,1434,6,(230,150,80,255))
+# sas d'entree cote domes (face ouest du foyer)
+airlock_ext(cv,426,308,13); airlock_ext(cv,426,748,13)
+
+# --- domes (r = 4 cases) ---
 for cyy in (308,748):
     cv.fill_circle(220,cyy,176,(64,70,82))
     cv.ring(220,cyy,176,(216,220,228),5)
@@ -55,27 +62,17 @@ corpse(cv,220,506)
 cv.text(240,500,'PILOTE',C_DIM,1)
 ship_topdown(cv,220,648,200,170,'courier')
 cv.text(220-textw('HOT COMET',1)/2,588,'HOT COMET',C_TEXT,1)
-irisv(cv,455,308); irisv(cv,455,748)
 
 # --- etiquettes ---
 def lab(cx_,cy_,s,col=C_TEXT):
     cv.text(cx_-textw(s,1)/2,cy_,s,col,1)
 lab(220,106,'DOME 1 - YACHT 100 T')
 lab(220,936,'DOME 2 - HOT COMET (PAD LIBRE)')
-lab(506,522,'FOYER')
-lab(968,534,'COULOIR 1')
-lab(968,404,'6 CABINES')
-lab(968,668,'EXPOSITIONS')
-lab(1496,452,'COUDE')
-lab(1562,990,'COULOIR 2')
-lab(1416,1207,'TSYGANKOV')
-lab(1430,747,'CAB P1'); lab(1430,879,'CAB P2'); lab(1430,1011,'CAB P3')
-lab(1694,826,'CUISINE')
-lab(1694,1134,'SALON')
-lab(1540,1460,'CONTROLE')
+station_label(cv,968,540,740,'DOMAINE TSYGANKOV',C_TEXT,3,2)
 cv.text(620,1620,'PORTE DU DOME 1 VERROUILLEE DEPUIS LA SALLE DE CONTROLE',C_DIM,1)
+cv.text(620,1640,'VUE EXTERIEURE - EMPREINTE REELLE (44 PX ALIGNEE), SANS DETAILS INTERIEURS',C_DIM,1)
 
 grid_overlay(cv,0,88,1804,1540)
-title(cv,'WHITE BEAR - SURFACE - DOMES + DOMAINE','TG-14 - EMPREINTE EXACTE DU DOMAINE (MEMES SURFACES QUE LES CARTES INTERIEURES) - 1 CASE = 1,5 M')
+title(cv,'WHITE BEAR - PAD D\'ATTERRISSAGE - VUE EXTERIEURE','TG-14 - SURFACE - YACHT (DOME 1) - HOT COMET (DOME 2) - TUBES VERS DOMAINE - 1 CASE = 1,5 M')
 save_png('whitebear_pad_map.png',cv)
 print('pad ok')

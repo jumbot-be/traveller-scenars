@@ -8,7 +8,7 @@ Maps (grille 44 px, 1 case = 1,5 m, toutes les pièces alignées sur les carrés
 - `whitebear_estate_map.png` - plan d'ensemble aux vraies dimensions (44 px/case) : 2 dômes, tubes, couloirs, coude, salle de contrôle
 - `whitebear_deck1_map.png` - couloir 1 : foyer/SAS, 6 cabines de luxe individuelles, expositions d'armures, salle de plaisir (10 invités morts)
 - `whitebear_deck2_map.png` - couloir 2 : 3 cabines doubles du personnel à gauche, cabine de Tsygankov collée à la salle de contrôle (passage secret caché dans le dressing), cuisine (3 corps), salon, salle de contrôle + SAS surface
-- `whitebear_pad_map.png` - surface : empreinte exacte du domaine (toits alignés sur les cartes intérieures), dôme 1 (yacht + rampe + corps du pilote), dôme 2 (Hot Comet), tubes vers foyer
+- `whitebear_pad_map.png` - surface, vue extérieure : silhouette unie du domaine (empreinte réelle alignée sur les cartes intérieures, aucun détail d'intérieur), dôme 1 (yacht + rampe + corps du pilote), dôme 2 (Hot Comet), tubes vers le foyer
 
 Tokens 512 px fond transparent :
 - `token_serviteur_1..6.png` - robots serviteurs TL13 (x6)
