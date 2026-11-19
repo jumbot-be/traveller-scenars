@@ -1,0 +1,2384 @@
+[
+ {
+  "key": "athlete",
+  "name": "Athlete",
+  "qualification": {
+   "char": "END",
+   "target": 8
+  },
+  "survival": {
+   "char": "DEX",
+   "target": 5
+  },
+  "commission": null,
+  "advancement": null,
+  "reenlistment": 6,
+  "ranks": [
+   {
+    "title": null,
+    "skill": "Athletics"
+   },
+   {
+    "title": null,
+    "skill": null
+   },
+   {
+    "title": null,
+    "skill": null
+   },
+   {
+    "title": null,
+    "skill": null
+   },
+   {
+    "title": null,
+    "skill": null
+   },
+   {
+    "title": null,
+    "skill": null
+   },
+   {
+    "title": null,
+    "skill": null
+   }
+  ],
+  "material_benefits": [
+   "Low Passage",
+   "+1 Int",
+   "Weapon",
+   "High Passage",
+   "Explorers' Society",
+   "High Passage",
+   null
+  ],
+  "cash_benefits": [
+   2000,
+   10000,
+   20000,
+   20000,
+   50000,
+   100000,
+   100000
+  ],
+  "personal_development": [
+   "+1 Dex",
+   "+1 Int",
+   "+1 Edu",
+   "+1 Soc",
+   "Carousing",
+   "Melee Combat"
+  ],
+  "service_skills": [
+   "Athletics",
+   "Admin",
+   "Carousing",
+   "Computer",
+   "Gambling",
+   "Vehicle"
+  ],
+  "specialist": [
+   "Zero-G",
+   "Athletics",
+   "Athletics",
+   "Computer",
+   "Leadership",
+   "Gambling"
+  ],
+  "advanced_education": [
+   "Advocate",
+   "Computer",
+   "Liaison",
+   "Linguistics",
+   "Medicine",
+   "Sciences"
+  ]
+ },
+ {
+  "key": "aerospace_defense",
+  "name": "Aerospace System Defense",
+  "qualification": {
+   "char": "END",
+   "target": 5
+  },
+  "survival": {
+   "char": "DEX",
+   "target": 5
+  },
+  "commission": {
+   "char": "EDU",
+   "target": 6
+  },
+  "advancement": {
+   "char": "EDU",
+   "target": 7
+  },
+  "reenlistment": 5,
+  "ranks": [
+   {
+    "title": "Airman",
+    "skill": "Aircraft"
+   },
+   {
+    "title": "Flight Officer",
+    "skill": null
+   },
+   {
+    "title": "Flight Lieutenant",
+    "skill": null
+   },
+   {
+    "title": "Squadron Leader",
+    "skill": "Leadership"
+   },
+   {
+    "title": "Wing Commander",
+    "skill": null
+   },
+   {
+    "title": "Group Captain",
+    "skill": null
+   },
+   {
+    "title": "Air Commodore",
+    "skill": null
+   }
+  ],
+  "material_benefits": [
+   "Low Passage",
+   "+1 Edu",
+   "Weapon",
+   "Mid Passage",
+   "Weapon",
+   "High Passage",
+   "+1 Soc"
+  ],
+  "cash_benefits": [
+   1000,
+   5000,
+   10000,
+   10000,
+   20000,
+   50000,
+   50000
+  ],
+  "personal_development": [
+   "+1 Str",
+   "+1 Dex",
+   "+1 End",
+   "Athletics",
+   "Melee Combat",
+   "Vehicle"
+  ],
+  "service_skills": [
+   "Electronics",
+   "Gun Combat",
+   "Gunnery",
+   "Melee Combat",
+   "Survival",
+   "Aircraft"
+  ],
+  "specialist": [
+   "Comms",
+   "Gravitics",
+   "Gun Combat",
+   "Gunnery",
+   "Recon",
+   "Piloting"
+  ],
+  "advanced_education": [
+   "Advocate",
+   "Computer",
+   "Jack o' Trades",
+   "Medicine",
+   "Leadership",
+   "Tactics"
+  ]
+ },
+ {
+  "key": "agent",
+  "name": "Agent",
+  "qualification": {
+   "char": "SOC",
+   "target": 6
+  },
+  "survival": {
+   "char": "INT",
+   "target": 6
+  },
+  "commission": {
+   "char": "EDU",
+   "target": 7
+  },
+  "advancement": {
+   "char": "EDU",
+   "target": 6
+  },
+  "reenlistment": 6,
+  "ranks": [
+   {
+    "title": "Agent",
+    "skill": "Streetwise"
+   },
+   {
+    "title": "Special Agent",
+    "skill": null
+   },
+   {
+    "title": "Sp Agent in Charge",
+    "skill": null
+   },
+   {
+    "title": "Unit Chief",
+    "skill": null
+   },
+   {
+    "title": "Section Chief",
+    "skill": "Admin"
+   },
+   {
+    "title": "Assistant Directory",
+    "skill": null
+   },
+   {
+    "title": "Director",
+    "skill": null
+   }
+  ],
+  "material_benefits": [
+   "Low Passage",
+   "+1 Int",
+   "Weapon",
+   "Mid Passage",
+   "+1 Soc",
+   "High Passage",
+   "Explorers' Society"
+  ],
+  "cash_benefits": [
+   1000,
+   5000,
+   10000,
+   10000,
+   20000,
+   50000,
+   50000
+  ],
+  "personal_development": [
+   "+1 Dex",
+   "+1 End",
+   "+1 Int",
+   "+1 Edu",
+   "Athletics",
+   "Carousing"
+  ],
+  "service_skills": [
+   "Admin",
+   "Computer",
+   "Streetwise",
+   "Bribery",
+   "Leadership",
+   "Vehicle"
+  ],
+  "specialist": [
+   "Gun Combat",
+   "Melee Combat",
+   "Bribery",
+   "Leadership",
+   "Recon",
+   "Survival"
+  ],
+  "advanced_education": [
+   "Advocate",
+   "Computer",
+   "Liaison",
+   "Linguistics",
+   "Medicine",
+   "Leadership"
+  ]
+ },
+ {
+  "key": "barbarian",
+  "name": "Barbarian",
+  "qualification": {
+   "char": "END",
+   "target": 5
+  },
+  "survival": {
+   "char": "STR",
+   "target": 6
+  },
+  "commission": null,
+  "advancement": null,
+  "reenlistment": 5,
+  "ranks": [
+   {
+    "title": null,
+    "skill": "Melee Combat"
+   },
+   {
+    "title": null,
+    "skill": null
+   },
+   {
+    "title": null,
+    "skill": null
+   },
+   {
+    "title": null,
+    "skill": null
+   },
+   {
+    "title": null,
+    "skill": null
+   },
+   {
+    "title": null,
+    "skill": null
+   },
+   {
+    "title": null,
+    "skill": null
+   }
+  ],
+  "material_benefits": [
+   "Low Passage",
+   "+1 Int",
+   "Weapon",
+   "Weapon",
+   "+1 End",
+   "Mid Passage",
+   null
+  ],
+  "cash_benefits": [
+   0,
+   1000,
+   2000,
+   5000,
+   5000,
+   10000,
+   10000
+  ],
+  "personal_development": [
+   "+1 Str",
+   "+1 Dex",
+   "+1 End",
+   "+1 Int",
+   "Athletics",
+   "Gun Combat"
+  ],
+  "service_skills": [
+   "Mechanics",
+   "Gun Combat",
+   "Melee Combat",
+   "Recon",
+   "Survival",
+   "Animals"
+  ],
+  "specialist": [
+   "Gun Combat",
+   "Jack o' Trades",
+   "Melee Combat",
+   "Recon",
+   "Animals",
+   "Tactics"
+  ],
+  "advanced_education": [
+   "Advocate",
+   "Linguistics",
+   "Medicine",
+   "Leadership",
+   "Tactics",
+   "Broker"
+  ]
+ },
+ {
+  "key": "belter",
+  "name": "Belter",
+  "qualification": {
+   "char": "INT",
+   "target": 4
+  },
+  "survival": {
+   "char": "DEX",
+   "target": 7
+  },
+  "commission": null,
+  "advancement": null,
+  "reenlistment": 5,
+  "ranks": [
+   {
+    "title": null,
+    "skill": "Zero-G"
+   },
+   {
+    "title": null,
+    "skill": null
+   },
+   {
+    "title": null,
+    "skill": null
+   },
+   {
+    "title": null,
+    "skill": null
+   },
+   {
+    "title": null,
+    "skill": null
+   },
+   {
+    "title": null,
+    "skill": null
+   },
+   {
+    "title": null,
+    "skill": null
+   }
+  ],
+  "material_benefits": [
+   "Low Passage",
+   "+1 Int",
+   "Weapon",
+   "Mid Passage",
+   "1D6 Ship Shares",
+   "High Passage",
+   null
+  ],
+  "cash_benefits": [
+   1000,
+   5000,
+   5000,
+   5000,
+   10000,
+   20000,
+   50000
+  ],
+  "personal_development": [
+   "+1 Str",
+   "+1 Dex",
+   "+1 End",
+   "Zero-G",
+   "Melee Combat",
+   "Gambling"
+  ],
+  "service_skills": [
+   "Comms",
+   "Demolitions",
+   "Gun Combat",
+   "Gunnery",
+   "Prospecting",
+   "Piloting"
+  ],
+  "specialist": [
+   "Zero-G",
+   "Computer",
+   "Electronics",
+   "Prospecting",
+   "Sciences",
+   "Vehicle"
+  ],
+  "advanced_education": [
+   "Advocate",
+   "Engineering",
+   "Medicine",
+   "Navigation",
+   "Comms",
+   "Tactics"
+  ]
+ },
+ {
+  "key": "bureaucrat",
+  "name": "Bureaucrat",
+  "qualification": {
+   "char": "SOC",
+   "target": 6
+  },
+  "survival": {
+   "char": "EDU",
+   "target": 4
+  },
+  "commission": {
+   "char": "SOC",
+   "target": 5
+  },
+  "advancement": {
+   "char": "INT",
+   "target": 8
+  },
+  "reenlistment": 5,
+  "ranks": [
+   {
+    "title": "Assistant",
+    "skill": "Admin"
+   },
+   {
+    "title": "Clerk",
+    "skill": null
+   },
+   {
+    "title": "Supervisor",
+    "skill": null
+   },
+   {
+    "title": "Manager",
+    "skill": null
+   },
+   {
+    "title": "Chief",
+    "skill": "Advocate"
+   },
+   {
+    "title": "Director",
+    "skill": null
+   },
+   {
+    "title": "Minister",
+    "skill": null
+   }
+  ],
+  "material_benefits": [
+   "Low Passage",
+   "+1 Edu",
+   "+1 Int",
+   "Mid Passage",
+   "Mid Passage",
+   "High Passage",
+   "+1 Soc"
+  ],
+  "cash_benefits": [
+   1000,
+   5000,
+   10000,
+   10000,
+   20000,
+   50000,
+   50000
+  ],
+  "personal_development": [
+   "+1 Dex",
+   "+1 End",
+   "+1 Int",
+   "+1 Edu",
+   "Athletics",
+   "Carousing"
+  ],
+  "service_skills": [
+   "Admin",
+   "Computer",
+   "Carousing",
+   "Bribery",
+   "Leadership",
+   "Vehicle"
+  ],
+  "specialist": [
+   "Admin",
+   "Computer",
+   "Perception",
+   "Leadership",
+   "Steward",
+   "Vehicle"
+  ],
+  "advanced_education": [
+   "Advocate",
+   "Computer",
+   "Liaison",
+   "Linguistics",
+   "Medicine",
+   "Admin"
+  ]
+ },
+ {
+  "key": "colonist",
+  "name": "Colonist",
+  "qualification": {
+   "char": "END",
+   "target": 5
+  },
+  "survival": {
+   "char": "END",
+   "target": 6
+  },
+  "commission": {
+   "char": "INT",
+   "target": 7
+  },
+  "advancement": {
+   "char": "EDU",
+   "target": 6
+  },
+  "reenlistment": 5,
+  "ranks": [
+   {
+    "title": "Citizen",
+    "skill": "Survival"
+   },
+   {
+    "title": "District Leader",
+    "skill": null
+   },
+   {
+    "title": "District Delegate",
+    "skill": null
+   },
+   {
+    "title": "Council Advisor",
+    "skill": "Liaision"
+   },
+   {
+    "title": "Councilor",
+    "skill": null
+   },
+   {
+    "title": "Lieutenant Governor",
+    "skill": null
+   },
+   {
+    "title": "Governor",
+    "skill": null
+   }
+  ],
+  "material_benefits": [
+   "Low Passage",
+   "+1 Int",
+   "Weapon",
+   "Mid Passage",
+   "Mid Passage",
+   "High Passage",
+   "+1 Soc"
+  ],
+  "cash_benefits": [
+   1000,
+   5000,
+   5000,
+   5000,
+   10000,
+   20000,
+   50000
+  ],
+  "personal_development": [
+   "+1 Str",
+   "+1 Dex",
+   "+1 End",
+   "+1 Int",
+   "Athletics",
+   "Gun Combat"
+  ],
+  "service_skills": [
+   "Mechanics",
+   "Gun Combat",
+   "Animals",
+   "Electronics",
+   "Survival",
+   "Vehicle"
+  ],
+  "specialist": [
+   "Athletics",
+   "Carousing",
+   "Jack o' Trades",
+   "Engineering",
+   "Animals",
+   "Vehicle"
+  ],
+  "advanced_education": [
+   "Advocate",
+   "Linguistics",
+   "Medicine",
+   "Liaison",
+   "Admin",
+   "Animals"
+  ]
+ },
+ {
+  "key": "diplomat",
+  "name": "Diplomat",
+  "qualification": {
+   "char": "SOC",
+   "target": 6
+  },
+  "survival": {
+   "char": "EDU",
+   "target": 5
+  },
+  "commission": {
+   "char": "INT",
+   "target": 7
+  },
+  "advancement": {
+   "char": "SOC",
+   "target": 7
+  },
+  "reenlistment": 5,
+  "ranks": [
+   {
+    "title": "Attaché",
+    "skill": "Liaison"
+   },
+   {
+    "title": "Third Secretary",
+    "skill": null
+   },
+   {
+    "title": "Second Secretary",
+    "skill": null
+   },
+   {
+    "title": "First Secretary",
+    "skill": "Admin"
+   },
+   {
+    "title": "Counselor",
+    "skill": null
+   },
+   {
+    "title": "Minister",
+    "skill": null
+   },
+   {
+    "title": "Ambassador",
+    "skill": null
+   }
+  ],
+  "material_benefits": [
+   "Low Passage",
+   "+1 Edu",
+   "Mid Passage",
+   "High Passage",
+   "+1 Soc",
+   "High Passage",
+   "Explorers' Society"
+  ],
+  "cash_benefits": [
+   1000,
+   5000,
+   10000,
+   20000,
+   20000,
+   50000,
+   100000
+  ],
+  "personal_development": [
+   "+1 Dex",
+   "+1 End",
+   "+1 Int",
+   "+1 Edu",
+   "Athletics",
+   "Carousing"
+  ],
+  "service_skills": [
+   "Admin",
+   "Computer",
+   "Carousing",
+   "Bribery",
+   "Liaison",
+   "Vehicle"
+  ],
+  "specialist": [
+   "Carousing",
+   "Linguistics",
+   "Bribery",
+   "Liaison",
+   "Steward",
+   "Vehicle"
+  ],
+  "advanced_education": [
+   "Advocate",
+   "Computer",
+   "Liaison",
+   "Linguistics",
+   "Medicine",
+   "Leadership"
+  ]
+ },
+ {
+  "key": "drifter",
+  "name": "Drifter",
+  "qualification": {
+   "char": "DEX",
+   "target": 5
+  },
+  "survival": {
+   "char": "END",
+   "target": 5
+  },
+  "commission": null,
+  "advancement": null,
+  "reenlistment": 5,
+  "ranks": [
+   {
+    "title": null,
+    "skill": null
+   },
+   {
+    "title": null,
+    "skill": null
+   },
+   {
+    "title": null,
+    "skill": null
+   },
+   {
+    "title": null,
+    "skill": null
+   },
+   {
+    "title": null,
+    "skill": null
+   },
+   {
+    "title": null,
+    "skill": null
+   },
+   {
+    "title": null,
+    "skill": null
+   }
+  ],
+  "material_benefits": [
+   "Low Passage",
+   "+1 Int",
+   "Weapon",
+   "Weapon",
+   "Mid Passage",
+   "Mid Passage",
+   null
+  ],
+  "cash_benefits": [
+   0,
+   1000,
+   2000,
+   5000,
+   5000,
+   10000,
+   10000
+  ],
+  "personal_development": [
+   "+1 Str",
+   "+1 Dex",
+   "+1 End",
+   "Melee Combat",
+   "Bribery",
+   "Gambling"
+  ],
+  "service_skills": [
+   "Streetwise",
+   "Mechanics",
+   "Gun Combat",
+   "Melee Combat",
+   "Recon",
+   "Vehicle"
+  ],
+  "specialist": [
+   "Electronics",
+   "Melee Combat",
+   "Bribery",
+   "Streetwise",
+   "Gambling",
+   "Recon"
+  ],
+  "advanced_education": [
+   "Computer",
+   "Engineering",
+   "Jack o' Trades",
+   "Medicine",
+   "Liaison",
+   "Tactics"
+  ]
+ },
+ {
+  "key": "entertainer",
+  "name": "Entertainer",
+  "qualification": {
+   "char": "SOC",
+   "target": 8
+  },
+  "survival": {
+   "char": "INT",
+   "target": 4
+  },
+  "commission": null,
+  "advancement": null,
+  "reenlistment": 6,
+  "ranks": [
+   {
+    "title": null,
+    "skill": "Carousing"
+   },
+   {
+    "title": null,
+    "skill": null
+   },
+   {
+    "title": null,
+    "skill": null
+   },
+   {
+    "title": null,
+    "skill": null
+   },
+   {
+    "title": null,
+    "skill": null
+   },
+   {
+    "title": null,
+    "skill": null
+   },
+   {
+    "title": null,
+    "skill": null
+   }
+  ],
+  "material_benefits": [
+   "Low Passage",
+   "+1 Edu",
+   "+1 Soc",
+   "High Passage",
+   "Explorers' Society",
+   "High Passage",
+   null
+  ],
+  "cash_benefits": [
+   2000,
+   10000,
+   20000,
+   20000,
+   50000,
+   100000,
+   100000
+  ],
+  "personal_development": [
+   "+1 Dex",
+   "+1 Int",
+   "+1 Edu",
+   "+1 Soc",
+   "Carousing",
+   "Melee Combat"
+  ],
+  "service_skills": [
+   "Athletics",
+   "Admin",
+   "Carousing",
+   "Bribery",
+   "Gambling",
+   "Vehicle"
+  ],
+  "specialist": [
+   "Computer",
+   "Carousing",
+   "Bribery",
+   "Liaison",
+   "Gambling",
+   "Recon"
+  ],
+  "advanced_education": [
+   "Advocate",
+   "Computer",
+   "Carousing",
+   "Linguistics",
+   "Medicine",
+   "Sciences"
+  ]
+ },
+ {
+  "key": "hunter",
+  "name": "Hunter",
+  "qualification": {
+   "char": "END",
+   "target": 5
+  },
+  "survival": {
+   "char": "STR",
+   "target": 8
+  },
+  "commission": null,
+  "advancement": null,
+  "reenlistment": 6,
+  "ranks": [
+   {
+    "title": null,
+    "skill": "Survival"
+   },
+   {
+    "title": null,
+    "skill": null
+   },
+   {
+    "title": null,
+    "skill": null
+   },
+   {
+    "title": null,
+    "skill": null
+   },
+   {
+    "title": null,
+    "skill": null
+   },
+   {
+    "title": null,
+    "skill": null
+   },
+   {
+    "title": null,
+    "skill": null
+   }
+  ],
+  "material_benefits": [
+   "Low Passage",
+   "+1 Int",
+   "Weapon",
+   "High Passage",
+   "1D6 Ship Shares",
+   "High Passage",
+   null
+  ],
+  "cash_benefits": [
+   1000,
+   5000,
+   10000,
+   20000,
+   20000,
+   50000,
+   100000
+  ],
+  "personal_development": [
+   "+1 Str",
+   "+1 Dex",
+   "+1 End",
+   "+1 Int",
+   "Athletics",
+   "Gun Combat"
+  ],
+  "service_skills": [
+   "Mechanics",
+   "Gun Combat",
+   "Melee Combat",
+   "Recon",
+   "Survival",
+   "Vehicle"
+  ],
+  "specialist": [
+   "Admin",
+   "Comms",
+   "Electronics",
+   "Recon",
+   "Animals",
+   "Vehicle"
+  ],
+  "advanced_education": [
+   "Advocate",
+   "Linguistics",
+   "Medicine",
+   "Liaison",
+   "Tactics",
+   "Animals"
+  ]
+ },
+ {
+  "key": "marine",
+  "name": "Marine",
+  "qualification": {
+   "char": "INT",
+   "target": 6
+  },
+  "survival": {
+   "char": "END",
+   "target": 6
+  },
+  "commission": {
+   "char": "EDU",
+   "target": 6
+  },
+  "advancement": {
+   "char": "SOC",
+   "target": 7
+  },
+  "reenlistment": 6,
+  "ranks": [
+   {
+    "title": "Trooper",
+    "skill": "Zero-G"
+   },
+   {
+    "title": "Lieutenant",
+    "skill": null
+   },
+   {
+    "title": "Captain",
+    "skill": null
+   },
+   {
+    "title": "Major",
+    "skill": "Tactics"
+   },
+   {
+    "title": "Lt Colonel",
+    "skill": null
+   },
+   {
+    "title": "Colonel",
+    "skill": null
+   },
+   {
+    "title": "Brigadier",
+    "skill": null
+   }
+  ],
+  "material_benefits": [
+   "Low Passage",
+   "+1 Edu",
+   "Weapon",
+   "Mid Passage",
+   "+1 Soc",
+   "High Passage",
+   "Explorers' Society"
+  ],
+  "cash_benefits": [
+   1000,
+   5000,
+   10000,
+   10000,
+   20000,
+   50000,
+   50000
+  ],
+  "personal_development": [
+   "+1 Str",
+   "+1 Dex",
+   "+1 End",
+   "+1 Int",
+   "+1 Edu",
+   "Melee Combat"
+  ],
+  "service_skills": [
+   "Comms",
+   "Demolitions",
+   "Gun Combat",
+   "Gunnery",
+   "Melee Combat",
+   "Battle Dress"
+  ],
+  "specialist": [
+   "Electronics",
+   "Gun Combat",
+   "Melee Combat",
+   "Survival",
+   "Recon",
+   "Vehicle"
+  ],
+  "advanced_education": [
+   "Advocate",
+   "Computer",
+   "Gravitics",
+   "Medicine",
+   "Navigation",
+   "Tactics"
+  ]
+ },
+ {
+  "key": "maritime_defense",
+  "name": "Maritime System Defense",
+  "qualification": {
+   "char": "END",
+   "target": 5
+  },
+  "survival": {
+   "char": "END",
+   "target": 5
+  },
+  "commission": {
+   "char": "INT",
+   "target": 6
+  },
+  "advancement": {
+   "char": "EDU",
+   "target": 7
+  },
+  "reenlistment": 5,
+  "ranks": [
+   {
+    "title": "Seaman",
+    "skill": "Watercraft"
+   },
+   {
+    "title": "Ensign",
+    "skill": null
+   },
+   {
+    "title": "Lieutenant",
+    "skill": null
+   },
+   {
+    "title": "Lt Commander",
+    "skill": "Leadership"
+   },
+   {
+    "title": "Commander",
+    "skill": null
+   },
+   {
+    "title": "Captain",
+    "skill": null
+   },
+   {
+    "title": "Admiral",
+    "skill": null
+   }
+  ],
+  "material_benefits": [
+   "Low Passage",
+   "+1 Edu",
+   "Weapon",
+   "Mid Passage",
+   "Weapon",
+   "High Passage",
+   "+1 Soc"
+  ],
+  "cash_benefits": [
+   1000,
+   5000,
+   10000,
+   10000,
+   20000,
+   50000,
+   50000
+  ],
+  "personal_development": [
+   "+1 Str",
+   "+1 Dex",
+   "+1 End",
+   "Athletics",
+   "Melee Combat",
+   "Vehicle"
+  ],
+  "service_skills": [
+   "Mechanics",
+   "Gun Combat",
+   "Gunnery",
+   "Melee Combat",
+   "Survival",
+   "Watercraft"
+  ],
+  "specialist": [
+   "Comms",
+   "Electronics",
+   "Gun Combat",
+   "Demolitions",
+   "Recon",
+   "Watercraft"
+  ],
+  "advanced_education": [
+   "Advocate",
+   "Computer",
+   "Jack o' Trades",
+   "Medicine",
+   "Leadership",
+   "Tactics"
+  ]
+ },
+ {
+  "key": "mercenary",
+  "name": "Mercenary",
+  "qualification": {
+   "char": "INT",
+   "target": 4
+  },
+  "survival": {
+   "char": "END",
+   "target": 6
+  },
+  "commission": {
+   "char": "INT",
+   "target": 7
+  },
+  "advancement": {
+   "char": "INT",
+   "target": 6
+  },
+  "reenlistment": 5,
+  "ranks": [
+   {
+    "title": "Private",
+    "skill": "Gun Combat"
+   },
+   {
+    "title": "Lieutenant",
+    "skill": null
+   },
+   {
+    "title": "Captain",
+    "skill": null
+   },
+   {
+    "title": "Major",
+    "skill": "Tactics"
+   },
+   {
+    "title": "Lt Colonel",
+    "skill": null
+   },
+   {
+    "title": "Colonel",
+    "skill": null
+   },
+   {
+    "title": "Brigadier",
+    "skill": null
+   }
+  ],
+  "material_benefits": [
+   "Low Passage",
+   "+1 Int",
+   "Weapon",
+   "High Passage",
+   "+1 Soc",
+   "High Passage",
+   "1D6 Ship Shares"
+  ],
+  "cash_benefits": [
+   1000,
+   5000,
+   10000,
+   20000,
+   20000,
+   50000,
+   100000
+  ],
+  "personal_development": [
+   "+1 Str",
+   "+1 Dex",
+   "+1 End",
+   "Zero-G",
+   "Melee Combat",
+   "Gambling"
+  ],
+  "service_skills": [
+   "Comms",
+   "Mechanics",
+   "Gun Combat",
+   "Melee Combat",
+   "Gambling",
+   "Battle Dress"
+  ],
+  "specialist": [
+   "Gravitics",
+   "Gun Combat",
+   "Gunnery",
+   "Melee Combat",
+   "Recon",
+   "Vehicle"
+  ],
+  "advanced_education": [
+   "Advocate",
+   "Engineering",
+   "Medicine",
+   "Navigation",
+   "Sciences",
+   "Tactics"
+  ]
+ },
+ {
+  "key": "merchant",
+  "name": "Merchant",
+  "qualification": {
+   "char": "INT",
+   "target": 4
+  },
+  "survival": {
+   "char": "INT",
+   "target": 5
+  },
+  "commission": {
+   "char": "INT",
+   "target": 5
+  },
+  "advancement": {
+   "char": "EDU",
+   "target": 8
+  },
+  "reenlistment": 4,
+  "ranks": [
+   {
+    "title": "Crewman",
+    "skill": "Steward"
+   },
+   {
+    "title": "Deck Cadet",
+    "skill": null
+   },
+   {
+    "title": "Fourth Officer",
+    "skill": null
+   },
+   {
+    "title": "Third Officer",
+    "skill": "Pilot"
+   },
+   {
+    "title": "Second Officer",
+    "skill": null
+   },
+   {
+    "title": "First Officer",
+    "skill": null
+   },
+   {
+    "title": "Captain",
+    "skill": null
+   }
+  ],
+  "material_benefits": [
+   "Low Passage",
+   "+1 Edu",
+   "Weapon",
+   "High Passage",
+   "1D6 Ship Shares",
+   "High Passage",
+   "Explorers' Society"
+  ],
+  "cash_benefits": [
+   1000,
+   5000,
+   10000,
+   20000,
+   20000,
+   50000,
+   100000
+  ],
+  "personal_development": [
+   "+1 Str",
+   "+1 Dex",
+   "+1 End",
+   "Zero-G",
+   "Melee Combat",
+   "Steward"
+  ],
+  "service_skills": [
+   "Comms",
+   "Engineering",
+   "Gun Combat",
+   "Melee Combat",
+   "Broker",
+   "Vehicle"
+  ],
+  "specialist": [
+   "Carousing",
+   "Gunnery",
+   "Jack o' Trades",
+   "Medicine",
+   "Navigation",
+   "Piloting"
+  ],
+  "advanced_education": [
+   "Advocate",
+   "Engineering",
+   "Medicine",
+   "Navigation",
+   "Sciences",
+   "Tactics"
+  ]
+ },
+ {
+  "key": "navy",
+  "name": "Navy",
+  "qualification": {
+   "char": "INT",
+   "target": 6
+  },
+  "survival": {
+   "char": "INT",
+   "target": 5
+  },
+  "commission": {
+   "char": "SOC",
+   "target": 7
+  },
+  "advancement": {
+   "char": "EDU",
+   "target": 6
+  },
+  "reenlistment": 5,
+  "ranks": [
+   {
+    "title": "Starman",
+    "skill": "Zero-G"
+   },
+   {
+    "title": "Midshipman",
+    "skill": null
+   },
+   {
+    "title": "Lieutenant",
+    "skill": null
+   },
+   {
+    "title": "Lt Commander",
+    "skill": "Tactics"
+   },
+   {
+    "title": "Commander",
+    "skill": null
+   },
+   {
+    "title": "Captain",
+    "skill": null
+   },
+   {
+    "title": "Commodore",
+    "skill": null
+   }
+  ],
+  "material_benefits": [
+   "Low Passage",
+   "+1 Edu",
+   "Weapon",
+   "Mid Passage",
+   "+1 Soc",
+   "High Passage",
+   "Explorers' Society"
+  ],
+  "cash_benefits": [
+   1000,
+   5000,
+   10000,
+   10000,
+   20000,
+   50000,
+   50000
+  ],
+  "personal_development": [
+   "+1 Str",
+   "+1 Dex",
+   "+1 End",
+   "+1 Int",
+   "+1 Edu",
+   "Melee Combat"
+  ],
+  "service_skills": [
+   "Comms",
+   "Engineering",
+   "Gun Combat",
+   "Gunnery",
+   "Melee Combat",
+   "Vehicle"
+  ],
+  "specialist": [
+   "Gravitics",
+   "Jack o' Trades",
+   "Melee Combat",
+   "Navigation",
+   "Leadership",
+   "Piloting"
+  ],
+  "advanced_education": [
+   "Advocate",
+   "Computer",
+   "Engineering",
+   "Medicine",
+   "Navigation",
+   "Tactics"
+  ]
+ },
+ {
+  "key": "noble",
+  "name": "Noble",
+  "qualification": {
+   "char": "SOC",
+   "target": 8
+  },
+  "survival": {
+   "char": "SOC",
+   "target": 4
+  },
+  "commission": {
+   "char": "EDU",
+   "target": 5
+  },
+  "advancement": {
+   "char": "INT",
+   "target": 8
+  },
+  "reenlistment": 6,
+  "ranks": [
+   {
+    "title": "Courtier",
+    "skill": "Carousing"
+   },
+   {
+    "title": "Knight",
+    "skill": null
+   },
+   {
+    "title": "Baron",
+    "skill": null
+   },
+   {
+    "title": "Marquis",
+    "skill": null
+   },
+   {
+    "title": "Count",
+    "skill": "Advocate"
+   },
+   {
+    "title": "Duke",
+    "skill": null
+   },
+   {
+    "title": "Archduke",
+    "skill": null
+   }
+  ],
+  "material_benefits": [
+   "High Passage",
+   "+1 Edu",
+   "+1 Int",
+   "High Passage",
+   "Explorers' Society",
+   "High Passage",
+   "1D6 Ship Shares"
+  ],
+  "cash_benefits": [
+   2000,
+   10000,
+   20000,
+   20000,
+   50000,
+   100000,
+   100000
+  ],
+  "personal_development": [
+   "+1 Dex",
+   "+1 Int",
+   "+1 Edu",
+   "+1 Soc",
+   "Carousing",
+   "Melee Combat"
+  ],
+  "service_skills": [
+   "Athletics",
+   "Admin",
+   "Carousing",
+   "Leadership",
+   "Gambling",
+   "Vehicle"
+  ],
+  "specialist": [
+   "Computer",
+   "Carousing",
+   "Gun Combat",
+   "Melee Combat",
+   "Liaison",
+   "Animals"
+  ],
+  "advanced_education": [
+   "Advocate",
+   "Computer",
+   "Liaison",
+   "Linguistics",
+   "Medicine",
+   "Sciences"
+  ]
+ },
+ {
+  "key": "physician",
+  "name": "Physician",
+  "qualification": {
+   "char": "EDU",
+   "target": 6
+  },
+  "survival": {
+   "char": "INT",
+   "target": 4
+  },
+  "commission": {
+   "char": "INT",
+   "target": 5
+  },
+  "advancement": {
+   "char": "EDU",
+   "target": 8
+  },
+  "reenlistment": 5,
+  "ranks": [
+   {
+    "title": "Intern",
+    "skill": "Medicine"
+   },
+   {
+    "title": "Resident",
+    "skill": null
+   },
+   {
+    "title": "Senior Resident",
+    "skill": null
+   },
+   {
+    "title": "Chief Resident",
+    "skill": null
+   },
+   {
+    "title": "Attending Phys.",
+    "skill": "Admin"
+   },
+   {
+    "title": "Service Chief",
+    "skill": null
+   },
+   {
+    "title": "Hospital Admin.",
+    "skill": null
+   }
+  ],
+  "material_benefits": [
+   "Low Passage",
+   "+1 Edu",
+   "+1 Int",
+   "High Passage",
+   "Explorers' Society",
+   "High Passage",
+   "+1 Soc"
+  ],
+  "cash_benefits": [
+   2000,
+   10000,
+   20000,
+   20000,
+   50000,
+   100000,
+   100000
+  ],
+  "personal_development": [
+   "+1 Str",
+   "+1 Dex",
+   "+1 End",
+   "+1 Int",
+   "+1 Edu",
+   "Gun Combat"
+  ],
+  "service_skills": [
+   "Admin",
+   "Computer",
+   "Mechanics",
+   "Medicine",
+   "Leadership",
+   "Sciences"
+  ],
+  "specialist": [
+   "Computer",
+   "Carousing",
+   "Electronics",
+   "Medicine",
+   "Medicine",
+   "Sciences"
+  ],
+  "advanced_education": [
+   "Advocate",
+   "Computer",
+   "Jack o' Trades",
+   "Linguistics",
+   "Medicine",
+   "Sciences"
+  ]
+ },
+ {
+  "key": "pirate",
+  "name": "Pirate",
+  "qualification": {
+   "char": "DEX",
+   "target": 5
+  },
+  "survival": {
+   "char": "DEX",
+   "target": 6
+  },
+  "commission": {
+   "char": "STR",
+   "target": 7
+  },
+  "advancement": {
+   "char": "INT",
+   "target": 6
+  },
+  "reenlistment": 5,
+  "ranks": [
+   {
+    "title": "Crewman",
+    "skill": "Gunnery"
+   },
+   {
+    "title": "Corporal",
+    "skill": null
+   },
+   {
+    "title": "Lieutenant",
+    "skill": "Pilot"
+   },
+   {
+    "title": "Lt Commander",
+    "skill": null
+   },
+   {
+    "title": "Commander",
+    "skill": null
+   },
+   {
+    "title": "Captain",
+    "skill": null
+   },
+   {
+    "title": "Commodore",
+    "skill": null
+   }
+  ],
+  "material_benefits": [
+   "Low Passage",
+   "+1 Int",
+   "Weapon",
+   "High Passage",
+   "+1 Soc",
+   "High Passage",
+   "1D6 Ship Shares"
+  ],
+  "cash_benefits": [
+   1000,
+   5000,
+   10000,
+   20000,
+   20000,
+   50000,
+   100000
+  ],
+  "personal_development": [
+   "+1 Str",
+   "+1 Dex",
+   "+1 End",
+   "Melee Combat",
+   "Bribery",
+   "Gambling"
+  ],
+  "service_skills": [
+   "Streetwise",
+   "Electronics",
+   "Gun Combat",
+   "Melee Combat",
+   "Recon",
+   "Vehicle"
+  ],
+  "specialist": [
+   "Zero-G",
+   "Comms",
+   "Engineering",
+   "Gunnery",
+   "Navigation",
+   "Piloting"
+  ],
+  "advanced_education": [
+   "Computer",
+   "Gravitics",
+   "Jack o' Trades",
+   "Medicine",
+   "Advocate",
+   "Tactics"
+  ]
+ },
+ {
+  "key": "rogue",
+  "name": "Rogue",
+  "qualification": {
+   "char": "DEX",
+   "target": 5
+  },
+  "survival": {
+   "char": "DEX",
+   "target": 4
+  },
+  "commission": {
+   "char": "STR",
+   "target": 6
+  },
+  "advancement": {
+   "char": "INT",
+   "target": 7
+  },
+  "reenlistment": 4,
+  "ranks": [
+   {
+    "title": "Independent",
+    "skill": "Streetwise"
+   },
+   {
+    "title": "Associate",
+    "skill": null
+   },
+   {
+    "title": "Soldier",
+    "skill": "Gun Combat"
+   },
+   {
+    "title": "Lieutenant",
+    "skill": null
+   },
+   {
+    "title": "Underboss",
+    "skill": null
+   },
+   {
+    "title": "Consigliere",
+    "skill": null
+   },
+   {
+    "title": "Boss",
+    "skill": null
+   }
+  ],
+  "material_benefits": [
+   "Low Passage",
+   "+1 Int",
+   "Weapon",
+   "Mid Passage",
+   "Weapon",
+   "High Passage",
+   "+1 Soc"
+  ],
+  "cash_benefits": [
+   1000,
+   5000,
+   5000,
+   5000,
+   10000,
+   20000,
+   50000
+  ],
+  "personal_development": [
+   "+1 Str",
+   "+1 Dex",
+   "+1 End",
+   "Melee Combat",
+   "Bribery",
+   "Gambling"
+  ],
+  "service_skills": [
+   "Streetwise",
+   "Mechanics",
+   "Gun Combat",
+   "Melee Combat",
+   "Recon",
+   "Vehicle"
+  ],
+  "specialist": [
+   "Computer",
+   "Electronics",
+   "Bribery",
+   "Broker",
+   "Recon",
+   "Vehicle"
+  ],
+  "advanced_education": [
+   "Computer",
+   "Gravitics",
+   "Jack o' Trades",
+   "Medicine",
+   "Advocate",
+   "Tactics"
+  ]
+ },
+ {
+  "key": "scientist",
+  "name": "Scientist",
+  "qualification": {
+   "char": "EDU",
+   "target": 6
+  },
+  "survival": {
+   "char": "EDU",
+   "target": 5
+  },
+  "commission": {
+   "char": "INT",
+   "target": 7
+  },
+  "advancement": {
+   "char": "INT",
+   "target": 6
+  },
+  "reenlistment": 5,
+  "ranks": [
+   {
+    "title": "Instructor",
+    "skill": "Sciences"
+   },
+   {
+    "title": "Adjunct Professor",
+    "skill": null
+   },
+   {
+    "title": "Research Professor",
+    "skill": null
+   },
+   {
+    "title": "Assistant Professor",
+    "skill": "Computer"
+   },
+   {
+    "title": "Associate Professor",
+    "skill": null
+   },
+   {
+    "title": "Professor",
+    "skill": null
+   },
+   {
+    "title": "Distinguished Professor",
+    "skill": null
+   }
+  ],
+  "material_benefits": [
+   "Low Passage",
+   "+1 Edu",
+   "+1 Int",
+   "Mid Passage",
+   "+1 Soc",
+   "High Passage",
+   "Research Vessel"
+  ],
+  "cash_benefits": [
+   1000,
+   5000,
+   10000,
+   10000,
+   20000,
+   50000,
+   50000
+  ],
+  "personal_development": [
+   "+1 Str",
+   "+1 Dex",
+   "+1 End",
+   "+1 Int",
+   "+1 Edu",
+   "Gun Combat"
+  ],
+  "service_skills": [
+   "Admin",
+   "Computer",
+   "Electronics",
+   "Medicine",
+   "Bribery",
+   "Sciences"
+  ],
+  "specialist": [
+   "Navigation",
+   "Admin",
+   "Sciences",
+   "Sciences",
+   "Animals",
+   "Vehicle"
+  ],
+  "advanced_education": [
+   "Advocate",
+   "Computer",
+   "Jack o' Trades",
+   "Linguistics",
+   "Medicine",
+   "Sciences"
+  ]
+ },
+ {
+  "key": "scout",
+  "name": "Scout",
+  "qualification": {
+   "char": "INT",
+   "target": 6
+  },
+  "survival": {
+   "char": "END",
+   "target": 7
+  },
+  "commission": null,
+  "advancement": null,
+  "reenlistment": 6,
+  "ranks": [
+   {
+    "title": null,
+    "skill": "Pilot"
+   },
+   {
+    "title": null,
+    "skill": null
+   },
+   {
+    "title": null,
+    "skill": null
+   },
+   {
+    "title": null,
+    "skill": null
+   },
+   {
+    "title": null,
+    "skill": null
+   },
+   {
+    "title": null,
+    "skill": null
+   },
+   {
+    "title": null,
+    "skill": null
+   }
+  ],
+  "material_benefits": [
+   "Low Passage",
+   "+1 Edu",
+   "Weapon",
+   "Mid Passage",
+   "Explorers' Society",
+   "Courier Vessel",
+   null
+  ],
+  "cash_benefits": [
+   1000,
+   5000,
+   10000,
+   10000,
+   20000,
+   50000,
+   50000
+  ],
+  "personal_development": [
+   "+1 Str",
+   "+1 Dex",
+   "+1 End",
+   "Jack o' Trades",
+   "+1 Edu",
+   "Melee Combat"
+  ],
+  "service_skills": [
+   "Comms",
+   "Electronics",
+   "Gun Combat",
+   "Gunnery",
+   "Recon",
+   "Piloting"
+  ],
+  "specialist": [
+   "Engineering",
+   "Gunnery",
+   "Demolitions",
+   "Navigation",
+   "Medicine",
+   "Vehicle"
+  ],
+  "advanced_education": [
+   "Advocate",
+   "Computer",
+   "Linguistics",
+   "Medicine",
+   "Navigation",
+   "Tactics"
+  ]
+ },
+ {
+  "key": "surface_defense",
+  "name": "Surface System Defense",
+  "qualification": {
+   "char": "END",
+   "target": 5
+  },
+  "survival": {
+   "char": "EDU",
+   "target": 5
+  },
+  "commission": {
+   "char": "END",
+   "target": 6
+  },
+  "advancement": {
+   "char": "EDU",
+   "target": 7
+  },
+  "reenlistment": 5,
+  "ranks": [
+   {
+    "title": "Private",
+    "skill": "Gun Combat"
+   },
+   {
+    "title": "Lieutenant",
+    "skill": null
+   },
+   {
+    "title": "Captain",
+    "skill": null
+   },
+   {
+    "title": "Major",
+    "skill": "Leadership"
+   },
+   {
+    "title": "Lt Colonel",
+    "skill": null
+   },
+   {
+    "title": "Colonel",
+    "skill": null
+   },
+   {
+    "title": "General",
+    "skill": null
+   }
+  ],
+  "material_benefits": [
+   "Low Passage",
+   "+1 Int",
+   "Weapon",
+   "Mid Passage",
+   "Weapon",
+   "High Passage",
+   "+1 Soc"
+  ],
+  "cash_benefits": [
+   1000,
+   5000,
+   10000,
+   10000,
+   20000,
+   50000,
+   50000
+  ],
+  "personal_development": [
+   "+1 Str",
+   "+1 Dex",
+   "+1 End",
+   "Athletics",
+   "Melee Combat",
+   "Vehicle"
+  ],
+  "service_skills": [
+   "Mechanics",
+   "Gun Combat",
+   "Gunnery",
+   "Melee Combat",
+   "Recon",
+   "Battle Dress"
+  ],
+  "specialist": [
+   "Comms",
+   "Demolitions",
+   "Gun Combat",
+   "Melee Combat",
+   "Survival",
+   "Vehicle"
+  ],
+  "advanced_education": [
+   "Advocate",
+   "Computer",
+   "Jack o' Trades",
+   "Medicine",
+   "Leadership",
+   "Tactics"
+  ]
+ },
+ {
+  "key": "technician",
+  "name": "Technician",
+  "qualification": {
+   "char": "EDU",
+   "target": 6
+  },
+  "survival": {
+   "char": "DEX",
+   "target": 4
+  },
+  "commission": {
+   "char": "EDU",
+   "target": 5
+  },
+  "advancement": {
+   "char": "INT",
+   "target": 8
+  },
+  "reenlistment": 5,
+  "ranks": [
+   {
+    "title": "Technician",
+    "skill": "Computer"
+   },
+   {
+    "title": "Team Lead",
+    "skill": null
+   },
+   {
+    "title": "Supervisor",
+    "skill": null
+   },
+   {
+    "title": "Manager",
+    "skill": null
+   },
+   {
+    "title": "Director",
+    "skill": "Admin"
+   },
+   {
+    "title": "Vice-President",
+    "skill": null
+   },
+   {
+    "title": "Executive Officer",
+    "skill": null
+   }
+  ],
+  "material_benefits": [
+   "Low Passage",
+   "+1 Edu",
+   "+1 Int",
+   "Mid Passage",
+   "Mid Passage",
+   "High Passage",
+   "+1 Soc"
+  ],
+  "cash_benefits": [
+   1000,
+   5000,
+   10000,
+   10000,
+   20000,
+   50000,
+   50000
+  ],
+  "personal_development": [
+   "+1 Str",
+   "+1 Dex",
+   "+1 End",
+   "+1 Int",
+   "+1 Edu",
+   "Gun Combat"
+  ],
+  "service_skills": [
+   "Admin",
+   "Computer",
+   "Mechanics",
+   "Medicine",
+   "Electronics",
+   "Sciences"
+  ],
+  "specialist": [
+   "Computer",
+   "Electronics",
+   "Gravitics",
+   "Linguistics",
+   "Engineering",
+   "Animals"
+  ],
+  "advanced_education": [
+   "Advocate",
+   "Computer",
+   "Jack o' Trades",
+   "Linguistics",
+   "Medicine",
+   "Sciences"
+  ]
+ }
+]
