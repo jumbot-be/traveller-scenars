@@ -551,8 +551,9 @@ class Generator:
             hw = d["homeworld"]
             loc = f"{hw['sector']} {hw['hex']}" if hw.get("sector") else "synthetic"
             tl = data.pseudohex(hw["tl"]) if hw.get("tl") is not None else "?"
-            codes = ", ".join(hw.get("trade_codes") or []) or "none"
-            lines.append(f"Homeworld: {hw['name']} ({loc}) {hw['uwp']} TL {tl} [{codes}]")
+            codes = "; ".join(data.trade_code_label(c) for c in hw.get("trade_codes") or []) or "aucun"
+            lines.append(f"Homeworld: {hw['name']} ({loc}) {hw['uwp']} TL {tl}")
+            lines.append(f"  Codes commerciaux: {codes}")
         careers = ", ".join(f"{c['career']} ({c['terms_served']} term{'s' if c['terms_served'] != 1 else ''})" for c in d["careers"])
         lines.append(f"{careers} Cr{d['credits']:,}")
         skills = ", ".join(f"{k}-{v}" for k, v in d["skills"].items())

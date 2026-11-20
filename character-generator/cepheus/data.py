@@ -87,6 +87,55 @@ HOMEWORLD_TRADE_SKILLS = {
     "Water World": "Watercraft", "Vacuum": "Zero-G",
 }
 
+# Trade codes: short code + UWP condition (CE SRD, chapter "Worlds", "UWP Values
+# for Trade Codes") + short description (classic Traveller OGL wording).
+TRADE_CODE_INFO = {
+    "Agricultural": {"code": "Ag", "condition": "atmo 4-9, hydro 4-8, pop 5-7",
+                     "description": "Monde agricole, produit nourriture et matieres organiques"},
+    "Asteroid": {"code": "As", "condition": "size 0, atmo 0, hydro 0",
+                 "description": "Ceinture d'asteroides, aucun monde habitable de taille planetaire"},
+    "Barren": {"code": "Ba", "condition": "pop 0, gov 0, law 0",
+               "description": "Monde desert, sans population ni gouvernement"},
+    "Desert": {"code": "De", "condition": "atmo 2+, hydro 0",
+               "description": "Monde aride, peu de precipitations"},
+    "Fluid Oceans": {"code": "Fl", "condition": "atmo 10+, hydro 1+",
+                     "description": "Surface presque entierement liquide"},
+    "Garden": {"code": "Ga", "condition": "atmo 5/6/8, hydro 4-9, pop 4-8",
+               "description": "Monde de type terrestre, vegetation abondante"},
+    "High Population": {"code": "Hi", "condition": "pop 9+",
+                        "description": "Milliards d'habitants"},
+    "High Technology": {"code": "Ht", "condition": "TL 12+",
+                        "description": "Technologie avancee, niveau technologique 12 ou plus"},
+    "Ice-Capped": {"code": "Ic", "condition": "atmo 0-1, hydro 1+",
+                   "description": "Glace couvrant la majeure partie de la surface"},
+    "Industrial": {"code": "In", "condition": "atmo 0/2/4/7/9, pop 9+",
+                   "description": "Monde industrialise, forte production manufacturiere"},
+    "Low Population": {"code": "Lo", "condition": "pop 1-3",
+                       "description": "Moins d'un million d'habitants"},
+    "Low Technology": {"code": "Lt", "condition": "TL 5 ou moins",
+                       "description": "Technologie primitive, niveau technologique 5 ou moins"},
+    "Non-Agricultural": {"code": "Na", "condition": "atmo 0-3, hydro 0-3, pop 6+",
+                         "description": "Monde impropre a l'agriculture"},
+    "Non-Industrial": {"code": "Ni", "condition": "pop 4-6",
+                       "description": "Peu ou pas d'industrie"},
+    "Poor": {"code": "Po", "condition": "atmo 2-5, hydro 0-3",
+             "description": "Economie primitive, peu de commerce"},
+    "Rich": {"code": "Ri", "condition": "atmo 6 ou 8, pop 6-8",
+             "description": "Niveau de vie eleve, industrie et/ou agriculture developpees"},
+    "Water World": {"code": "Wa", "condition": "hydro 10",
+                    "description": "Monde ocean, hydrographie 10"},
+    "Vacuum": {"code": "Va", "condition": "atmo 0",
+               "description": "Sans atmosphere"},
+}
+
+
+def trade_code_label(name):
+    """'Garden' -> 'Ga Garden - Monde de type terrestre, vegetation abondante'."""
+    info = TRADE_CODE_INFO.get(name)
+    if not info:
+        return name
+    return f"{info['code']} {name} - {info['description']}"
+
 # The Draft (SRD p.28), 1D6.
 DRAFT = ["aerospace_defense", "marine", "maritime_defense", "navy", "scout", "surface_defense"]
 

@@ -134,6 +134,27 @@ class TestHomeworldIntegration(unittest.TestCase):
         c = generate_character(seed=5)
         self.assertIsNone(c["homeworld"])
 
+    def test_trade_code_details_in_sheet(self):
+        from cepheus.character import Generator
+        world = travellermap.normalize_world({
+            "name": "Spirelle", "hex": "1927", "sector": "Spinward Marches",
+            "uwp": "C766846-8", "remarks": "Ga Ri", "source": "travellermap"})
+        self.assertIn("Garden", world["trade_codes"])
+        self.assertIn("Rich", world["trade_codes"])
+        details = {d["name"]: d for d in world["trade_code_details"]}
+        self.assertEqual(details["Garden"]["code"], "Ga")
+        self.assertIn("terrestre", details["Garden"]["description"])
+        self.assertEqual(details["Rich"]["condition"], "atmo 6 ou 8, pop 6-8")
+        with mock.patch("cepheus.character.travellermap.random_world", return_value=world):
+            g = Generator(seed=5, options={"homeworld": True})
+            c = g.generate()
+        self.assertEqual(c["homeworld"]["trade_code_details"][0]["name"], c["homeworld"]["trade_codes"][0])
+        text = g.to_text()
+        self.assertIn("Spirelle", text)
+        self.assertIn("C766846-8", text)
+        self.assertIn("Ga Garden - ", text)
+        self.assertIn("Codes commerciaux:", text)
+
 
 if __name__ == "__main__":
     unittest.main()

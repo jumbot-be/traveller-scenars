@@ -19,6 +19,8 @@ import urllib.parse
 import urllib.request
 from pathlib import Path
 
+from . import data
+
 API_BASE = "https://travellermap.com/api"
 USER_AGENT = "traveller-character-api/0.1 (+https://github.com/jumbot-be/traveller-scenars)"
 DEFAULT_TIMEOUT = 20
@@ -266,6 +268,10 @@ def normalize_world(raw):
         "tl": uwp["tl"],
         "law_descriptor": law_descriptor(uwp["law"]),
         "trade_codes": codes,
+        "trade_code_details": [
+            {"name": c, **data.TRADE_CODE_INFO.get(c, {"code": None, "condition": None, "description": None})}
+            for c in codes
+        ],
         "bases": raw.get("bases"),
         "allegiance": raw.get("allegiance"),
         "remarks": raw.get("remarks"),
