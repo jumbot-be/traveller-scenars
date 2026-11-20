@@ -261,7 +261,61 @@ SPECIES = {
         "maturity": 22, "ageing_starts": 42,
         "height_cm": "155+(2D6x5)", "mass_kg": "50+(2D6x5)",
     },
+    # Major races of the Official Traveller Universe (Traveller Wiki /
+    # Mongoose Traveller data). char_rolls expressed as 2D6 +/- modifiers
+    # (CE "Notable/Weak characteristic" style).
+    "aslan": {
+        "name": "Aslan", "char_rolls": {"STR": "2D6+2", "DEX": "2D6-2"},
+        "traits": ["Dewclaw (Natural Weapon, 1D+2)", "Heightened Senses (DM+1 Recon/Survival)"],
+        "bonus_skills": ["Melee Combat (Natural Weapons)"],
+        "maturity": 18, "ageing_starts": 34,
+        "homeworld": "Kusyu (Dark Nebula 1226)",
+        "description": "Race majeure felinoide de l'Aslan Hierate. Maux de griffes (dewclaw), sens aiguises.",
+    },
+    "vargr": {
+        "name": "Vargr", "char_rolls": {"STR": "2D6-1", "DEX": "2D6+1", "END": "2D6-1"},
+        "traits": ["Bite (Natural Weapon, 1D+1)", "Heightened Senses", "Adapted Charisma (DM+1 Persuade/Leadership informel)"],
+        "bonus_skills": ["Melee Combat (Natural Weapons)"],
+        "maturity": 18, "ageing_starts": 34,
+        "description": "Race majeure canine des Vargr Extents, partiellement uplift par les Anciens.",
+    },
+    "kkree": {
+        "name": "K'kree", "char_rolls": {"STR": "2D6+6", "INT": "2D6+2", "EDU": "2D6+2"},
+        "traits": ["Big and Tough (degats END reduits de moitie)", "Claustrophobic", "Gregarious",
+                   "Speed of Hoof", "Militant Herbivore"],
+        "maturity": 18, "ageing_starts": 34,
+        "homeworld": "Kirur (Ruupiin 1315)",
+        "description": "Hexapodes centauroïdes herbivores des Two Thousand Worlds, tres puissants et grégaires.",
+    },
+    "droyne": {
+        "name": "Droyne", "char_rolls": {"STR": "1D+1", "DEX": "1D+1", "END": "1D+1",
+                                        "INT": "1D+1", "EDU": "1D+1", "SOC": "1D+1"},
+        "caste_table": True, "psi_always_rolled": True,
+        "traits": ["Wings (Flight)", "Claws (Natural Weapon, 1D+2)", "Caste (remplace le statut social)"],
+        "bonus_skills": ["Melee Combat (Natural Weapons)", "Athletics (Flying)"],
+        "maturity": 12, "ageing_starts": 28,  # aging from 4th term
+        "description": "Hexapodes ailés de la Droyne Ascendancy, organisés en castes (tirage 1D6 à l'adolescence).",
+    },
+    "hiver": {
+        "name": "Hiver", "char_rolls": {"STR": "2D6-2", "INT": "2D6+2", "EDU": "2D6+2"},
+        "soc_name": "Resolve",
+        "traits": ["No vocal cords (sign language / Voder)", "No Psionics", "Indirect Approach"],
+        "maturity": 14, "ageing_starts": 38,  # aging from 6th term
+        "description": "Hexapodes manipulateurs de la Hive Federation ; Resolve (RES) remplace SOC, pas de psionics.",
+    },
 }
+
+# Droyne castes (1D6 at adolescence) and their characteristic modifiers,
+# plus the universal casting bonus (Mongoose Traveller / Traveller Wiki data).
+DROYNE_CASTES = {
+    1: ("Worker", {"STR": 2, "END": 4}),
+    2: ("Warrior", {"STR": 3, "DEX": 1, "END": 2}),
+    3: ("Drone", {"DEX": 1, "INT": 3, "EDU": 2}),
+    4: ("Technician", {"DEX": 2, "INT": 3, "EDU": 1}),
+    5: ("Sport", {"DEX": 1, "END": 1, "INT": 2, "EDU": 2}),
+    6: ("Leader", {"INT": 4, "EDU": 2}),
+}
+DROYNE_CASTING_BONUS = {"STR": 1, "DEX": 1, "END": 1, "INT": 1, "EDU": 1}
 
 SPECIES_ALIASES = {
     "human": "human", "humain": "human", "humans": "human",
@@ -270,6 +324,11 @@ SPECIES_ALIASES = {
     "insectan": "insectan", "insectans": "insectan", "insectoïde": "insectan", "insectoide": "insectan",
     "merfolk": "merfolk", "merfolks": "merfolk", "sirène": "merfolk", "sirene": "merfolk",
     "reptilian": "reptilian", "reptilians": "reptilian", "reptilien": "reptilian", "reptiliens": "reptilian",
+    "aslan": "aslan", "aslans": "aslan",
+    "vargr": "vargr", "vargrs": "vargr", "vargre": "vargr",
+    "kkree": "kkree", "k'kree": "kkree", "k_kree": "kkree", "kree": "kkree",
+    "droyne": "droyne", "droynes": "droyne",
+    "hiver": "hiver", "hivers": "hiver", "hivern": "hiver",
 }
 
 

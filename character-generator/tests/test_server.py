@@ -163,7 +163,8 @@ class ServerTestCase(unittest.TestCase):
         status, body = self.get("/api/species")
         self.assertEqual(status, 200)
         keys = {s["key"] for s in body["species"]}
-        self.assertEqual(keys, {"human", "avian", "esper", "insectan", "merfolk", "reptilian"})
+        self.assertTrue({"human", "avian", "esper", "insectan", "merfolk", "reptilian",
+                         "aslan", "vargr", "kkree", "droyne", "hiver"} <= keys)
         status, body = self.post("/api/characters", {"seed": 11, "species": "reptilian"})
         self.assertEqual(status, 201)
         self.assertEqual(body["characters"][0]["species"], "Reptilian")

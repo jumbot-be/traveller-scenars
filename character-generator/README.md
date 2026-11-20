@@ -107,11 +107,14 @@ Corps JSON optionnel (tous les champs sont optionnels) :
 - `homeworld` : `true` par défaut → monde natal réel via TravellerMap ; `sector` (optionnel) force
   un secteur (nom ou abréviation, ex. `"Spinward Marches"` / `"spin"`). Le TL du monde pilote les
   codes commerciaux, donc les compétences de background (voir règle 2 ci-dessus).
-- `species` : `human` (défaut) ou une espèce officielle du SRD (`avian`, `esper`, `insectan`,
-  `merfolk`, `reptilian` ; alias FR acceptés) → jets de caractéristiques spécifiques (ex. Avian
-  STR/END 1D6, DEX 3D6), traits raciaux, âge de maturité et début du vieillissement propres
-  (Avian 22/46, Reptilian 22/42...), apparence (taille/masse), et PSI = 2D6 − termes pour les Espers
-  (suffixe `-X` dans l'UPP).
+- `species` : `human` (défaut), les 5 espèces du SRD Cepheus Engine (`avian`, `esper`, `insectan`,
+  `merfolk`, `reptilian`) **et les 5 races majeures de l'OTU officiel** (`aslan`, `vargr`, `kkree`,
+  `droyne`, `hiver` — données Traveller Wiki / Mongoose Traveller ; alias FR acceptés) → jets de
+  caractéristiques spécifiques (ex. Aslan STR 2D6+2 / DEX 2D6−2 ; K'kree STR 2D6+6, INT/EDU 2D6+2 ;
+  Droyne 1D+1 + modificateurs de caste), traits raciaux, âge de maturité et vieillissement propres
+  (Droyne 12 ans / vieillissement terme 4, Hiver 14 / terme 6...), et PSI = 2D6 − termes pour les
+  Espers et Droyne (suffixe `-X` dans l'UPP). Les Droyne tirent leur **caste** (1D6 : Worker,
+  Warrior, Drone, Technician, Sport, Leader) à l'adolescence.
 
 - `seed` : entier → génération reproductible (les seeds enfants sont dérivés du seed du lot).
 - `career` : clé ou nom d'une des 24 carrières pour la **première** carrière (`"random"` / absent = aléatoire).
@@ -153,7 +156,9 @@ Kemp), contenu Open Gaming sous OGL — PDF sur DriveThruRPG, miroir HTML/markdo
 ce SRD par `tools/parse_srd_careers.py`.
 Mondes du homeworld : API publique **TravellerMap** (<https://travellermap.com/doc/api>),
 interrogée à l'exécution et mise en cache localement — aucun monde inventé.
-Espèces non humaines : espèces officielles du SRD, chapitre 1 « On Alien Species » (Avians, Espers,
-Insectans, Merfolk, Reptilians) + psionics chapitre 3 (PSI = 2D6 − termes servis).
+Espèces non humaines : espèces du SRD Cepheus Engine, chapitre 1 « On Alien Species » (Avians,
+Espers, Insectans, Merfolk, Reptilians), races majeures de l'OTU officiel Traveller (Aslan, Vargr,
+K'kree, Droyne, Hivers — Traveller Wiki wiki.travellerrpg.com / données Mongoose Traveller), et
+psionics chapitre 3 (PSI = 2D6 − termes servis).
 Les titres de produits et marques (Cepheus Engine, Samardan Press) restent la propriété de leurs
 ayants droit ; le code de ce dépôt est sous la licence du dépôt.

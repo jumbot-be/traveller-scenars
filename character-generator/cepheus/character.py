@@ -67,6 +67,7 @@ class Generator:
             raise ValueError(f"unknown species: {self.opts.get('species')!r} "
                              f"(valid: {sorted(data.SPECIES)})")
         self.species = data.SPECIES[self.species_key]
+        self.caste = None
         self.ageing_starts = self.species["ageing_starts"]
         self.psi = None
         self.appearance = None
@@ -200,16 +201,25 @@ class Generator:
         return sum(1 for c in self.careers for t in c["terms"] if t.get("survived"))
 
     def _roll_char_spec(self, spec):
-        m = re.match(r"^(\d+)D6([+-]\d+)?$", spec)
+        m = re.match(r"^(\d+)D6?([+-]\d+)?$", spec)
         n, mod = int(m.group(1)), int(m.group(2) or 0)
         dice = self.rng.d6(n)
         return sum(dice) + mod, dice, spec
 
     def _roll_characteristics(self):
         self.say(f"Species: {self.species['name']}")
+        caste_mods = {}
+        self.caste = None
+        if self.species.get("caste_table"):
+            roll = self.rng.d6_sum()
+            self.caste, caste_mods = data.DROYNE_CASTES[roll]
+            bonus = data.DROYNE_CASTING_BONUS
+            caste_mods = {c: caste_mods.get(c, 0) + bonus.get(c, 0) for c in data.CHARACTERISTICS}
+            self.say(f"Droyne caste roll 1D6={roll}: {self.caste} (mods {caste_mods})")
         for c in data.CHARACTERISTICS:
             spec = self.species["char_rolls"].get(c, "2D6")
             value, dice, spec = self._roll_char_spec(spec)
+            value += caste_mods.get(c, 0)
             self.chars[c] = max(data.MIN_CHARACTERISTIC, min(data.MAX_CHARACTERISTIC, value))
             self.say(f"{c}: {spec}={dice} -> {self.chars[c]} (DM{data.dm(self.chars[c]):+d})")
         for skill in self.species.get("bonus_skills", []):
@@ -526,7 +536,7 @@ class Generator:
                 "height_cm": self._eval_formula(self.species["height_cm"]),
                 "mass_kg": self._eval_formula(self.species["mass_kg"]),
             }
-        if "Psionic" in self.species["traits"]:
+        if "Psionic" in self.species["traits"] or self.species.get("psi_always_rolled"):
             # PSI = 2D6 - terms served (SRD psionics chapter)
             psi = self.rng.d6_sum(2) - self.total_terms()
             self.psi = max(0, psi)
@@ -546,6 +556,8 @@ class Generator:
             "gender": self.gender,
             "species": self.species["name"],
             "species_key": self.species_key,
+            "species_description": self.species.get("description"),
+            "caste": self.caste,
             "traits": self.species["traits"],
             "psi": self.psi,
             "appearance": self.appearance,
@@ -576,7 +588,7 @@ class Generator:
     def to_text(self):
         d = self.to_dict()
         lines = []
-        lines.append(f"{d['name']} {d['upp']} Age {d['age']} ({d['species']})")
+        lines.append(f"{d['name']} {d['upp']} Age {d['age']} ({d['species']}" + (f", caste {d['caste']}" if d.get("caste") else "") + ")")
         if d["traits"]:
             lines.append("Traits: " + ", ".join(d["traits"]))
         if d["appearance"]:

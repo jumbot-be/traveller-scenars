@@ -184,6 +184,37 @@ class TestGeneration(unittest.TestCase):
         c = gen(1, species="aviaire")  # alias FR
         self.assertEqual(c["species_key"], "avian")
 
+    def test_major_races_rolls(self):
+        def initial(seed, species):
+            g = Generator(seed=seed, options={"species": species, "homeworld": False})
+            g._roll_characteristics()
+            return g
+        for seed in range(60):
+            g = initial(seed, "aslan")
+            self.assertTrue(4 <= g.chars["STR"] <= 14)   # 2D6+2
+            self.assertTrue(1 <= g.chars["DEX"] <= 10)   # 2D6-2, min 1
+            g = initial(seed, "vargr")
+            self.assertTrue(1 <= g.chars["STR"] <= 11)   # 2D6-1
+            self.assertTrue(3 <= g.chars["DEX"] <= 13)   # 2D6+1
+            self.assertTrue(1 <= g.chars["END"] <= 11)   # 2D6-1
+            g = initial(seed, "kkree")
+            self.assertTrue(8 <= g.chars["STR"] <= 15)   # 2D6+6, cap 15
+            self.assertTrue(4 <= g.chars["INT"] <= 14)   # 2D6+2
+            g = initial(seed, "hiver")
+            self.assertTrue(1 <= g.chars["STR"] <= 10)   # 2D6-2
+            self.assertTrue(4 <= g.chars["EDU"] <= 14)   # 2D6+2
+            g = initial(seed, "droyne")
+            self.assertIsNotNone(g.caste)
+            self.assertIn(g.caste, {"Worker", "Warrior", "Drone", "Technician", "Sport", "Leader"})
+            self.assertTrue(2 <= g.chars["STR"] <= 13)   # 1D+1 + caste mods, cap 15
+        c = gen(3, species="kkree")
+        self.assertEqual(c["species"], "K'kree")
+        self.assertIn("homeworld", c)  # homeworld on by default
+        c = gen(3, species="hiver")
+        self.assertEqual(c["species"], "Hiver")
+        c = gen(3, species="k'kree")  # alias with apostrophe
+        self.assertEqual(c["species_key"], "kkree")
+
     def test_text_sheet(self):
         c = gen(42)
         g = Generator(seed=42)
