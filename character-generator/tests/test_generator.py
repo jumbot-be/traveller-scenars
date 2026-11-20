@@ -215,6 +215,20 @@ class TestGeneration(unittest.TestCase):
         c = gen(3, species="k'kree")  # alias with apostrophe
         self.assertEqual(c["species_key"], "kkree")
 
+    def test_species_names(self):
+        from cepheus import data as d
+        for seed in range(30):
+            for key in d.SPECIES:
+                c = gen(seed, species=key)
+                n = len(c["name"].split())
+                self.assertTrue(2 <= n <= 5, f"{key}: {c['name']}")
+                if key != "human":
+                    # non-human names must not come from the human name lists
+                    self.assertNotIn(c["name"].split()[0], d.FIRST_NAMES_M + d.FIRST_NAMES_F)
+        # humans keep first+family as the first two parts
+        c = gen(11, species="human")
+        self.assertIn(c["name"].split()[0], d.FIRST_NAMES_M + d.FIRST_NAMES_F)
+
     def test_text_sheet(self):
         c = gen(42)
         g = Generator(seed=42)

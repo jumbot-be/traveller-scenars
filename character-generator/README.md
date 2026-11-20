@@ -107,6 +107,11 @@ Corps JSON optionnel (tous les champs sont optionnels) :
 - `homeworld` : `true` par défaut → monde natal réel via TravellerMap ; `sector` (optionnel) force
   un secteur (nom ou abréviation, ex. `"Spinward Marches"` / `"spin"`). Le TL du monde pilote les
   codes commerciaux, donc les compétences de background (voir règle 2 ci-dessus).
+- **Noms** : chaque espèce non humaine a sa propre table de syllabes (noms façon OTU : Aslan
+  « KeshTlaAsh », Vargr « ShaUshimKan », K'kree « Rax AshRuk », Droyne « AshImdTekh »...), et tout
+  personnage peut avoir un nom composé de **2 à 5 éléments** (prénom + nom + particules/titres
+  futuristes tirés de `EXTRA_NAME_PARTS`, ex. « Emma Tanaka San Xe Mc »). Option `name` pour forcer
+  un nom.
 - `species` : `human` (défaut), les 5 espèces du SRD Cepheus Engine (`avian`, `esper`, `insectan`,
   `merfolk`, `reptilian`) **et les 5 races majeures de l'OTU officiel** (`aslan`, `vargr`, `kkree`,
   `droyne`, `hiver` — données Traveller Wiki / Mongoose Traveller ; alias FR acceptés) → jets de

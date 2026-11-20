@@ -20,6 +20,9 @@ class Rng:
     def choice(self, seq):
         return self._r.choice(seq)
 
+    def randint(self, a, b):
+        return self._r.randint(a, b)
+
     def shuffle(self, seq):
         seq = list(seq)
         self._r.shuffle(seq)

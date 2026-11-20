@@ -527,8 +527,7 @@ class Generator:
         if self.opts["name"]:
             name = self.opts["name"]
         else:
-            first = self.rng.choice(data.FIRST_NAMES_M if gender == "M" else data.FIRST_NAMES_F)
-            name = f"{first} {self.rng.choice(data.FAMILY_NAMES)}"
+            name = data.make_name(self.rng, self.species_key, gender)
         self.name = name
         self.gender = gender
         if self.species.get("height_cm"):

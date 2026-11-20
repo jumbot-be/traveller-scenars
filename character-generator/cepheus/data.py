@@ -336,3 +336,45 @@ def resolve_species(ref):
     if ref is None:
         return "human"
     return SPECIES_ALIASES.get(str(ref).strip().lower())
+
+
+# Name generation. Humans use FIRST_NAMES_* / FAMILY_NAMES; non-human species
+# use their own syllable pools (flavored after the official names of each race
+# in the OTU). A name is made of 2 to 5 parts: the species core part(s) first,
+# then extra parts (middle names, particles, titles) from EXTRA_NAME_PARTS.
+SPECIES_NAME_SYLLABLES = {
+    "human": None,  # uses FIRST_NAMES_* / FAMILY_NAMES
+    "aslan": ["Hwel", "Kar", "Ash", "Tla", "Vyr", "Ryr", "Nak", "Kesh", "Uiy", "Okh", "Fte", "Yar", "Hesh", "Lyr"],
+    "vargr": ["At", "Dag", "Ushim", "Sha", "Di", "Zheg", "Kan", "Zhig", "Bekh", "Gur", "Ir", "Ash", "Kul", "Vrek"],
+    "kkree": ["Kra", "Kkr", "Ruk", "Ash", "Kha", "Nak", "Kee", "Rax", "Ghu", "Tik", "Rukh", "Zhu", "K'", "Ok"],
+    "droyne": ["Odr", "Vud", "Imd", "Ash", "Yek", "Ohau", "Tekh", "Rash", "Uuy", "Ek", "Vesh", "Noh"],
+    "hiver": ["Chu", "Lik", "Zho", "Un", "Vesh", "Tak", "Ool", "Miri", "Nes", "Shel", "Wyr", "Iik"],
+    "avian": ["Kee", "Zhi", "Tsee", "Vir", "Ash", "Lyra", "Pik", "Sree", "Chir", "Nyo", "Vee", "Tsio"],
+    "esper": ["Ael", "Ly", "Ser", "Ori", "Tha", "Nyx", "Esh", "Iri", "Vael", "Ond", "Syl", "Aer"],
+    "insectan": ["Kch", "Vr", "Zik", "Thr", "Ashk", "Nym", "Qor", "Ss", "Chit", "Xal", "Zz", "Om"],
+    "merfolk": ["Mar", "Ond", "Liqu", "Ner", "Swei", "Mor", "Ish", "Aqua", "Loh", "Nami", "Thal", "Uin"],
+    "reptilian": ["Khar", "Zar", "Thrak", "Vesh", "Rax", "Ish", "Naga", "Sss", "Vor", "Krix", "Ash", "Tek"],
+}
+
+EXTRA_NAME_PARTS = [
+    "von", "van", "de", "del", "di", "al", "bin", "ibn", "Xe", "Neo", "Zed", "Kara",
+    "O'", "Mc", "San", "Yuk", "al-", "ter", "Xan", "Rho", "Lir", "Tor",
+]
+
+
+def make_name(rng, species_key, gender=None):
+    """Build a name of 2 to 5 parts. Humans: first + family (+ extra parts).
+    Non-humans: 1-2 syllable-composed parts from the species pool (+ extra parts)."""
+    n_parts = rng.choice([2, 2, 3, 3, 4, 5])
+    pool = SPECIES_NAME_SYLLABLES.get(species_key)
+    if pool is None:
+        first = rng.choice(FIRST_NAMES_M if gender == "M" else FIRST_NAMES_F)
+        parts = [first, rng.choice(FAMILY_NAMES)]
+    else:
+        core = "".join(rng.choice(pool) for _ in range(rng.randint(2, 3)))
+        parts = [core]
+        if rng.random() < 0.5:  # second species-specific part (clan/pack/house)
+            parts.append("".join(rng.choice(pool) for _ in range(rng.randint(1, 2))))
+    while len(parts) < n_parts:
+        parts.append(rng.choice(EXTRA_NAME_PARTS))
+    return " ".join(parts)
