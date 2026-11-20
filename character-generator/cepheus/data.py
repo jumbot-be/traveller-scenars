@@ -191,26 +191,89 @@ CAREER_BY_KEY = {c["key"]: c for c in CAREERS}
 CAREER_BY_NAME = {c["name"].lower(): c for c in CAREERS}
 
 FIRST_NAMES_M = [
-    "Alex", "Boris", "Cédric", "Damien", "Elias", "Franck", "Gaspard", "Hugo",
-    "Ivan", "Jonas", "Karl", "Luc", "Mateo", "Nikolai", "Oscar", "Pablo",
-    "Quentin", "Romain", "Stefan", "Théo", "Ulysse", "Victor", "Wendell", "Xavier",
-    "Yusuf", "Zacharie", "Marc", "Louis", "Piotr", "Henrik", "Rui", "Kenji",
+    "Adrien", "Alex", "Antoine", "Armand", "Barnab\u00e9", "Boris", "C\u00e9dric", "Cl\u00e9ment",
+    "Damien", "Dorian", "Elias", "Emilien", "Fabien", "Franck", "Friedrich", "Gaspard",
+    "Georges", "Hugo", "Ivan", "Jacques", "Jonas", "Julien", "Karl", "Kenji", "Leo",
+    "Luc", "Louis", "Marc", "Mateo", "Mathieu", "Milan", "Nikolai", "Noah", "Oscar",
+    "Pablo", "Paul", "Peter", "Philémon", "Piotr", "Quentin", "Raphaël", "Romain",
+    "Samuel", "Sasha", "Sebastian", "Stefan", "Théo", "Thibault", "Ulysse", "Victor",
+    "Vincent", "Wendell", "Xavier", "Yann", "Yusuf", "Zacharie", "Émile", "Étienne",
+    "Hökan", "J\u00fcrgen", "S\u00f8ren", "Marek", "Tomas", "Rui", "Bruno", "Anders",
 ]
 FIRST_NAMES_F = [
-    "Alice", "Brigitte", "Chloé", "Dana", "Emma", "Fatou", "Gisèle", "Hana",
-    "Inès", "Julia", "Karina", "Léa", "Mona", "Nadia", "Olga", "Paula",
-    "Quinn", "Rosa", "Sofia", "Tania", "Ursula", "Vera", "Wanda", "Xenia",
-    "Yuki", "Zoé", "Camille", "Elsa", "Nadia", "Ingrid", "Lena", "Mira",
+    "Adèle", "Alice", "Amélie", "Anna", "Brigitte", "Camille", "Chloé", "Claire",
+    "Clémence", "Dana", "Delphine", "Elsa", "Emma", "Fatou", "Fleur", "Gisèle",
+    "Hana", "Inès", "Ingrid", "Julia", "Karina", "Katya", "Léa", "Lena",
+    "Lise", "Mara", "Mira", "Mona", "Nadia", "Nina", "Noémie", "Olga",
+    "Paula", "Quinn", "Rosa", "Sara", "Sofia", "Tania", "Ursula", "Vera",
+    "Wanda", "Xenia", "Yuki", "Zoé", "Anaïs", "Béatrice", "Célia", "Élise",
+    "Hélène", "Joséphine", "Louise", "Margot", "Salomé", "Agathe", "Romane", "Alba",
+    "Freya", "Sigrid", "Anya", "Lena", "Mira", "Eszter", "Nadia", "Petra",
 ]
 FAMILY_NAMES = [
-    "Almeida", "Barros", "Costa", "Dubois", "Durand", "Fabre", "Gagnon", "Haddad",
-    "Ivanov", "Jansen", "Kowalski", "Larsen", "Moreau", "Novak", "Okafor", "Petrov",
-    "Quintero", "Rossi", "Silva", "Tremblay", "Ueda", "Vargas", "Wojcik", "Xu",
-    "Yilmaz", "Zhang", "Moreau", "Keller", "Mendes", "Olsen", "Petrova", "Roy",
+    "Almeida", "Barros", "Benali", "Costa", "Dubois", "Durand", "Fabre", "Fontaine",
+    "Gagnon", "Garcia", "Haddad", "Ivanov", "Jansen", "Keller", "Kowalski", "Larsen",
+    "Lefebvre", "Lindqvist", "Mendes", "Moreau", "Novak", "Okafor", "Olsen", "Petrov",
+    "Petrova", "Quintero", "Rossi", "Roy", "Silva", "Szabo", "Tremblay", "Ueda",
+    "Vargas", "Wojcik", "Xu", "Yilmaz", "Zhang", "Berger", "Blanchard", "Bonnet",
+    "Carrier", "Chevalier", "Dufour", "Gauthier", "Girard", "Lacroix", "Lemaire", "Leroy",
+    "Marchand", "Martin", "Mercier", "Meyer", "Muller", "Nguyen", "Perrin", "Roche",
+    "Rousseau", "Schmidt", "Tanaka", "Vidal", "Weber", "Aalto", "Bakker", "Castillo",
+    "Dubois", "Ekström", "Fischer", "Grimaldi", "Hoffmann", "Ibrahim", "Jensen", "Kaur",
 ]
 
-WORLD_SYLLABLES = [
-    "Al", "Be", "Cor", "Dan", "Es", "Fen", "Gar", "Hel", "Ir", "Jor",
-    "Kal", "Lyr", "Mor", "Nor", "Os", "Per", "Quin", "Rho", "Sel", "Tor",
-    "Um", "Val", "Wyn", "Xan", "Yor", "Zeph",
-]
+# Official alien species of the CE SRD ("On Alien Species", chapter 1).
+# char_rolls: how each characteristic is generated instead of plain 2D6
+# ("1D6", "3D6", "2D6+2", "2D6-2", ...). ageing_starts: age at which aging rolls begin.
+SPECIES = {
+    "human": {
+        "name": "Human", "char_rolls": {}, "traits": [],
+        "maturity": 18, "ageing_starts": 34, "height_cm": None, "mass_kg": None,
+    },
+    "avian": {
+        "name": "Avian", "char_rolls": {"STR": "1D6", "DEX": "3D6", "END": "1D6"},
+        "traits": ["Flyer (9m)", "Low Gravity Adaptation", "Natural Pilot", "Slow Speed (4.5m)", "Small"],
+        "maturity": 22, "ageing_starts": 46,
+        "height_cm": "105+(2D6x2)", "mass_kg": "20+(2D6x2)",
+    },
+    "esper": {
+        "name": "Esper", "char_rolls": {}, "traits": ["Psionic"],
+        "maturity": 18, "ageing_starts": 34, "height_cm": None, "mass_kg": None,
+    },
+    "insectan": {
+        "name": "Insectan", "char_rolls": {"DEX": "2D6+2"}, "soc_name": "Caste",
+        "traits": ["Armored", "Bad First Impression", "Caste", "Cold-blooded", "Fast Speed (9m)",
+                   "Great Leaper", "Hive Mentality"],
+        "bonus_skills": ["Athletics"],  # Great Leaper trait
+        "maturity": 18, "ageing_starts": 34,
+        "height_cm": "160+(2D6x5)", "mass_kg": "60+(2D6x5)",
+    },
+    "merfolk": {
+        "name": "Merfolk", "char_rolls": {},
+        "traits": ["Amphibious", "Aquatic", "Natural Swimmer", "Water Dependent"],
+        "maturity": 18, "ageing_starts": 34, "height_cm": None, "mass_kg": None,
+    },
+    "reptilian": {
+        "name": "Reptilian", "char_rolls": {"STR": "2D6+1", "DEX": "2D6+1", "END": "2D6-2"},
+        "traits": ["Anti-Psionic", "Fast Speed (9m)", "Heat Endurance", "Low-Light Vision",
+                   "Natural Weapon (teeth)", "Low Gravity Adaptation"],
+        "bonus_skills": ["Melee Combat (Natural Weapons)"],  # Natural Weapon trait
+        "maturity": 22, "ageing_starts": 42,
+        "height_cm": "155+(2D6x5)", "mass_kg": "50+(2D6x5)",
+    },
+}
+
+SPECIES_ALIASES = {
+    "human": "human", "humain": "human", "humans": "human",
+    "avian": "avian", "avians": "avian", "aviaire": "avian", "aviaires": "avian",
+    "esper": "esper", "expers": "esper", "espers": "esper",
+    "insectan": "insectan", "insectans": "insectan", "insectoïde": "insectan", "insectoide": "insectan",
+    "merfolk": "merfolk", "merfolks": "merfolk", "sirène": "merfolk", "sirene": "merfolk",
+    "reptilian": "reptilian", "reptilians": "reptilian", "reptilien": "reptilian", "reptiliens": "reptilian",
+}
+
+
+def resolve_species(ref):
+    if ref is None:
+        return "human"
+    return SPECIES_ALIASES.get(str(ref).strip().lower())

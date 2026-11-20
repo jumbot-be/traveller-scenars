@@ -28,6 +28,8 @@ def main():
     p.add_argument("--no-homeworld", dest="homeworld", action="store_false",
                    help="desactiver le monde natal")
     p.add_argument("--sector", default=None, help="sector name/abbreviation for the homeworld (e.g. 'Spinward Marches', 'spin')")
+    p.add_argument("--species", default="human",
+                   help="human, avian, esper, insectan, merfolk or reptilian (CE SRD alien species)")
     p.add_argument("--no-background", action="store_true", help="skip background skills")
     p.add_argument("--name", default=None)
     p.add_argument("--gender", choices=["M", "F"], default=None)
@@ -50,6 +52,7 @@ def main():
         "background_skills": not args.no_background,
         "homeworld": args.homeworld,
         "sector": args.sector,
+        "species": args.species,
         "name": args.name,
         "gender": args.gender,
     }

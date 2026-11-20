@@ -31,6 +31,7 @@ DEFAULT_OPTIONS = {
     "background_skills": True, # step 2 (homeworld step, optional in the SRD)
     "homeworld": True,         # pick a real homeworld from the TravellerMap API (False to disable)
     "sector": None,            # optional sector name/abbreviation for the homeworld
+    "species": "human",        # human, avian, esper, insectan, merfolk, reptilian (CE SRD alien species)
     "name": None,
     "gender": None,
 }
@@ -61,9 +62,17 @@ class Generator:
             if unknown:
                 raise ValueError(f"unknown options: {sorted(unknown)}")
             self.opts.update(options)
+        self.species_key = data.resolve_species(self.opts.get("species"))
+        if self.species_key is None:
+            raise ValueError(f"unknown species: {self.opts.get('species')!r} "
+                             f"(valid: {sorted(data.SPECIES)})")
+        self.species = data.SPECIES[self.species_key]
+        self.ageing_starts = self.species["ageing_starts"]
+        self.psi = None
+        self.appearance = None
         self.chars = {}
         self.skills = {}
-        self.age = data.START_AGE
+        self.age = self.species["maturity"]
         self.credits = 0
         self.debt = 0
         self.equipment = []
@@ -190,35 +199,31 @@ class Generator:
     def total_terms(self):
         return sum(1 for c in self.careers for t in c["terms"] if t.get("survived"))
 
+    def _roll_char_spec(self, spec):
+        m = re.match(r"^(\d+)D6([+-]\d+)?$", spec)
+        n, mod = int(m.group(1)), int(m.group(2) or 0)
+        dice = self.rng.d6(n)
+        return sum(dice) + mod, dice, spec
+
     def _roll_characteristics(self):
+        self.say(f"Species: {self.species['name']}")
         for c in data.CHARACTERISTICS:
-            dice = self.rng.d6(2)
-            self.chars[c] = sum(dice)
-            self.say(f"{c}: 2D6={dice} -> {self.chars[c]} (DM{data.dm(self.chars[c]):+d})")
+            spec = self.species["char_rolls"].get(c, "2D6")
+            value, dice, spec = self._roll_char_spec(spec)
+            self.chars[c] = max(data.MIN_CHARACTERISTIC, min(data.MAX_CHARACTERISTIC, value))
+            self.say(f"{c}: {spec}={dice} -> {self.chars[c]} (DM{data.dm(self.chars[c]):+d})")
+        for skill in self.species.get("bonus_skills", []):
+            self.set_skill0(skill)
+            self.say(f"Species trait skill: {self.resolve_skill(skill)}-0")
 
     def _pick_homeworld(self):
         world = travellermap.random_world(self.rng, sector=self.opts.get("sector"))
         if world is None:
-            world = self._synthetic_homeworld()
-            self.say("TravellerMap API unreachable: synthetic homeworld (flagged 'synthetic')")
+            self.say("TravellerMap API unreachable: no homeworld (homeworld skipped)")
         else:
             self.say(f"Homeworld from TravellerMap: {world['name']} ({world['sector']} {world['hex']}) "
                      f"UWP {world['uwp']} TL {world['tl']} trade codes: {', '.join(world['trade_codes']) or 'none'}")
         self.homeworld = world
-
-    def _synthetic_homeworld(self):
-        rng = self.rng
-        starport = rng.choice("ABCDEX")
-        size = data.pseudohex(rng.d6_sum() % 11) if rng.random() < 0.9 else "0"
-        atmo = data.pseudohex(min(15, rng.d6_sum() - 1)) if size != "0" else "0"
-        hydro = data.pseudohex(min(10, rng.d6_sum() % 11)) if atmo not in ("0", "1", "A", "B", "C") else "0"
-        pop = data.pseudohex(min(10, rng.d6_sum() % 11))
-        gov = data.pseudohex(min(15, rng.d6_sum() - 1))
-        law = data.pseudohex(min(18, rng.d6_sum() - 1))
-        tl = data.pseudohex(min(15, max(0, rng.d6_sum() + rng.d6_sum() - 7)))
-        name = "".join(rng.choice(data.WORLD_SYLLABLES) for _ in range(2))
-        uwp = f"{starport}{size}{atmo}{hydro}{pop}{gov}{law}-{tl}"
-        return travellermap.normalize_world({"name": name, "uwp": uwp, "source": "synthetic"})
 
     def _background_skills(self):
         n = max(1, 3 + self.dm("EDU"))
@@ -338,7 +343,7 @@ class Generator:
             record["terms"].append(term)
             # aging (step 8)
             self.age += data.TERM_YEARS
-            if self.age >= data.AGEING_STARTS_AT and self.alive:
+            if self.age >= self.ageing_starts and self.alive:
                 term["aging"] = self._aging()
             if not self.alive:
                 break
@@ -502,6 +507,11 @@ class Generator:
         record["benefits"].append(f"{entry} (roll {roll})")
         self.say(f"Benefit: {entry} (roll {roll})")
 
+    def _eval_formula(self, formula):
+        m = re.match(r"^(\d+)\+\(2D6x(\d+)\)$", formula)
+        base, mult = int(m.group(1)), int(m.group(2))
+        return base + self.rng.d6_sum(2) * mult
+
     def _final_details(self):
         gender = self.opts["gender"] or self.rng.choice(["M", "F"])
         if self.opts["name"]:
@@ -511,6 +521,22 @@ class Generator:
             name = f"{first} {self.rng.choice(data.FAMILY_NAMES)}"
         self.name = name
         self.gender = gender
+        if self.species.get("height_cm"):
+            self.appearance = {
+                "height_cm": self._eval_formula(self.species["height_cm"]),
+                "mass_kg": self._eval_formula(self.species["mass_kg"]),
+            }
+        if "Psionic" in self.species["traits"]:
+            # PSI = 2D6 - terms served (SRD psionics chapter)
+            psi = self.rng.d6_sum(2) - self.total_terms()
+            self.psi = max(0, psi)
+            self.say(f"Psionic Strength (2D6 - {self.total_terms()} terms): PSI {self.psi}")
+
+    def upp(self):
+        s = data.upp_string(self.chars)
+        if self.psi:
+            s += f"-{data.pseudohex(self.psi)}"
+        return s
 
     # ------------------------------------------------------------------ out
     def to_dict(self):
@@ -518,9 +544,13 @@ class Generator:
             "seed": self.seed,
             "name": self.name,
             "gender": self.gender,
-            "species": "Human",
+            "species": self.species["name"],
+            "species_key": self.species_key,
+            "traits": self.species["traits"],
+            "psi": self.psi,
+            "appearance": self.appearance,
             "age": self.age,
-            "upp": data.upp_string(self.chars),
+            "upp": self.upp(),
             "characteristics": {c: {"value": self.chars[c], "dm": data.dm(self.chars[c])} for c in data.CHARACTERISTICS},
             "skills": dict(sorted(self.skills.items())),
             "careers": [{
@@ -546,10 +576,14 @@ class Generator:
     def to_text(self):
         d = self.to_dict()
         lines = []
-        lines.append(f"{d['name']} {d['upp']} Age {d['age']}")
+        lines.append(f"{d['name']} {d['upp']} Age {d['age']} ({d['species']})")
+        if d["traits"]:
+            lines.append("Traits: " + ", ".join(d["traits"]))
+        if d["appearance"]:
+            lines.append(f"Apparence: {d['appearance']['height_cm']} cm, {d['appearance']['mass_kg']} kg")
         if d["homeworld"]:
             hw = d["homeworld"]
-            loc = f"{hw['sector']} {hw['hex']}" if hw.get("sector") else "synthetic"
+            loc = f"{hw['sector']} {hw['hex']}" if hw.get("sector") else "?"
             tl = data.pseudohex(hw["tl"]) if hw.get("tl") is not None else "?"
             lines.append(f"Homeworld: {hw['name']} ({loc}) - TL {tl}")
             fields = []

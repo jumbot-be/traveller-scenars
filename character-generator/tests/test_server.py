@@ -159,6 +159,17 @@ class ServerTestCase(unittest.TestCase):
             status, body = self.get("/api/worlds/random")
         self.assertEqual(status, 502)
 
+    def test_species_endpoint_and_option(self):
+        status, body = self.get("/api/species")
+        self.assertEqual(status, 200)
+        keys = {s["key"] for s in body["species"]}
+        self.assertEqual(keys, {"human", "avian", "esper", "insectan", "merfolk", "reptilian"})
+        status, body = self.post("/api/characters", {"seed": 11, "species": "reptilian"})
+        self.assertEqual(status, 201)
+        self.assertEqual(body["characters"][0]["species"], "Reptilian")
+        status, body = self.post("/api/characters", {"species": "elf"})
+        self.assertEqual(status, 400)
+
     def test_all_careers_generate(self):
         for career in data.CAREERS:
             status, body = self.post("/api/characters", {"seed": 5, "career": career["key"], "max_terms": 2})

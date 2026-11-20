@@ -4,8 +4,8 @@ Used to pick a REAL homeworld (name, UWP, TL, trade codes) instead of
 inventing one. Sector data is cached locally (TRAVELLERMAP_CACHE dir, default
 ~/.cache/traveller-character-api) to avoid hammering the API.
 
-If the API is unreachable, random_world() returns None and the caller falls
-back to a synthetic world (flagged "source": "synthetic").
+If the API is unreachable, random_world() returns None and the caller skips
+the homeworld (we only use official TravellerMap worlds, never invented ones).
 
 Trade codes are derived from the UWP per the Cepheus Engine SRD (chapter
 "Worlds", "UWP Values for Trade Codes") - the Tech Level column is what makes
@@ -298,7 +298,8 @@ def random_world(rng, sector=None, official_only=True):
 
     rng: a cepheus.dice.Rng (deterministic when seeded).
     sector: optional sector name or abbreviation; None = random official sector.
-    Returns a normalized world dict, or None if the API is unreachable.
+    Returns a normalized world dict, or None if the API is unreachable or the
+    sector is unknown.
     """
     try:
         sectors = list_sectors(official_only=official_only)

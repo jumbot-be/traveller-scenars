@@ -48,7 +48,7 @@ class TestData(unittest.TestCase):
 
 class TestGeneration(unittest.TestCase):
     def setUp(self):
-        # keep tests hermetic: no real TravellerMap calls (synthetic fallback)
+        # keep tests hermetic: no real TravellerMap calls (homeworld skipped)
         patcher = mock.patch("cepheus.character.travellermap.random_world", return_value=None)
         patcher.start()
         self.addCleanup(patcher.stop)
@@ -135,6 +135,54 @@ class TestGeneration(unittest.TestCase):
     def test_unknown_option_rejected(self):
         with self.assertRaises(ValueError):
             generate_character(seed=1, options={"jedi": True})
+
+    def test_unknown_species_rejected(self):
+        with self.assertRaises(ValueError):
+            generate_character(seed=1, options={"species": "elf"})
+
+    def test_species_initial_characteristic_rolls(self):
+        def initial(seed, species):
+            g = Generator(seed=seed, options={"species": species, "homeworld": False})
+            g._roll_characteristics()
+            return g.chars
+        for seed in range(60):
+            ch = initial(seed, "avian")
+            self.assertTrue(1 <= ch["STR"] <= 6)   # 1D6
+            self.assertTrue(1 <= ch["END"] <= 6)   # 1D6
+            self.assertTrue(3 <= ch["DEX"] <= 18)  # 3D6
+            ch = initial(seed, "insectan")
+            self.assertTrue(4 <= ch["DEX"] <= 14)  # 2D6+2
+            ch = initial(seed, "reptilian")
+            self.assertTrue(3 <= ch["STR"] <= 13)  # 2D6+1
+            self.assertTrue(1 <= ch["END"] <= 10)  # 2D6-2, min 1
+            ch = initial(seed, "human")
+            self.assertTrue(2 <= ch["STR"] <= 12)  # 2D6
+
+    def test_species_mechanics(self):
+        for seed in range(40):
+            c = gen(seed, species="avian")
+            self.assertEqual(c["species"], "Avian")
+            self.assertGreaterEqual(c["age"], 22)           # maturity
+            self.assertIn("Flyer (9m)", c["traits"])
+            self.assertIsNotNone(c["appearance"])
+        for seed in range(40):
+            c = gen(seed, species="insectan")
+            self.assertIn("Caste", c["traits"])
+            self.assertTrue(any(k.startswith("Athletics") for k in c["skills"]))
+        for seed in range(40):
+            c = gen(seed, species="reptilian")
+            self.assertGreaterEqual(c["age"], 22)
+            self.assertTrue(any(k.startswith("Melee Combat (Natural Weapons)") for k in c["skills"]))
+        for seed in range(40):
+            c = gen(seed, species="esper")
+            self.assertEqual(c["species"], "Esper")
+            self.assertIn("Psionic", c["traits"])
+            if c["psi"]:
+                self.assertIn(f"-{data.pseudohex(c['psi'])}", c["upp"])
+        c = gen(1, species="merfolk")
+        self.assertIn("Aquatic", c["traits"])
+        c = gen(1, species="aviaire")  # alias FR
+        self.assertEqual(c["species_key"], "avian")
 
     def test_text_sheet(self):
         c = gen(42)

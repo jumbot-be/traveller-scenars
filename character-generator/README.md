@@ -9,7 +9,7 @@ puis l'affichera. Prochaines extensions prévues : véhicules (VDS), vaisseaux, 
 ## Règles implémentées (checklist SRD, chapitre 1)
 
 1. **Caractéristiques** : 2D6 pour STR, DEX, END, INT, EDU, SOC ; DM = ⌊score/3⌋ − 2 ; UPP en pseudo-hex (`687B9C`). Âge de départ 18, caractéristiques plafonnées à 15.
-2. **Monde natal (activé par défaut, `homeworld: false` / `--no-homeworld` pour désactiver)** : compétences de background = `3 + DM EDU` au niveau 0. Le monde natal est un **vrai monde pioché via l'API TravellerMap** (`/api/universe` + `/api/sec`, cache local dans `~/.cache/traveller-character-api`, repli sur un monde synthétique signalé `"source": "synthetic"` si l'API est injoignable). Ses 2 premières compétences de background viennent de son **niveau de loi** et de ses **codes commerciaux**, dérivés de son UWP selon le SRD (chapitre Worlds) — et le **TL du monde joue donc sur la génération** : TL 12+ → code *High Technology* → compétence Computer-0, TL ≤ 5 → *Low Technology* → Survival-0, etc. Le TL et les codes sont exposés dans `homeworld` (avec `url` vers la carte TravellerMap) et dans la fiche texte, qui affiche aussi le **code UWP décodé** et chaque code commercial avec son code court, sa condition UWP (SRD) et sa description, p. ex. :
+2. **Monde natal (activé par défaut, `homeworld: false` / `--no-homeworld` pour désactiver)** : compétences de background = `3 + DM EDU` au niveau 0. Le monde natal est un **vrai monde pioché via l'API TravellerMap** (`/api/universe` + `/api/sec`, cache local dans `~/.cache/traveller-character-api`) — aucun monde inventé ; si l'API est injoignable, le homeworld est simplement omis (noté dans `history`). Ses 2 premières compétences de background viennent de son **niveau de loi** et de ses **codes commerciaux**, dérivés de son UWP selon le SRD (chapitre Worlds) — et le **TL du monde joue donc sur la génération** : TL 12+ → code *High Technology* → compétence Computer-0, TL ≤ 5 → *Low Technology* → Survival-0, etc. Le TL et les codes sont exposés dans `homeworld` (avec `url` vers la carte TravellerMap) et dans la fiche texte, qui affiche aussi le **code UWP décodé** et chaque code commercial avec son code court, sa condition UWP (SRD) et sa description, p. ex. :
 ```
 Homeworld: Spirelle (Spin 1927) - TL 8
   UWP: C766846-8 (spatioport C (Routine), taille 7, atmosphere 6, hydrosphere 6, population 8, gouvernement 4, loi 6 (Medium Law))
@@ -79,6 +79,7 @@ python3 server.py --host 127.0.0.1 --port 8080
 | GET | `/api/characters/<id>/text` | fiche en texte brut (format "Universal Character Format") |
 | GET | `/api/worlds/sectors` | liste des secteurs TravellerMap (officiels) |
 | GET | `/api/worlds/random?sector=<nom>&seed=<int>` | un monde réel aléatoire (UWP, TL, codes commerciaux) |
+| GET | `/api/species` | les espèces non humaines officielles du SRD |
 
 ### `POST /api/characters`
 
@@ -97,6 +98,7 @@ Corps JSON optionnel (tous les champs sont optionnels) :
   "background_skills": true,
   "homeworld": true,
   "sector": "Spinward Marches",
+  "species": "human",
   "name": "Rio Zhaleo",
   "gender": "M"
 }
@@ -105,6 +107,11 @@ Corps JSON optionnel (tous les champs sont optionnels) :
 - `homeworld` : `true` par défaut → monde natal réel via TravellerMap ; `sector` (optionnel) force
   un secteur (nom ou abréviation, ex. `"Spinward Marches"` / `"spin"`). Le TL du monde pilote les
   codes commerciaux, donc les compétences de background (voir règle 2 ci-dessus).
+- `species` : `human` (défaut) ou une espèce officielle du SRD (`avian`, `esper`, `insectan`,
+  `merfolk`, `reptilian` ; alias FR acceptés) → jets de caractéristiques spécifiques (ex. Avian
+  STR/END 1D6, DEX 3D6), traits raciaux, âge de maturité et début du vieillissement propres
+  (Avian 22/46, Reptilian 22/42...), apparence (taille/masse), et PSI = 2D6 − termes pour les Espers
+  (suffixe `-X` dans l'UPP).
 
 - `seed` : entier → génération reproductible (les seeds enfants sont dérivés du seed du lot).
 - `career` : clé ou nom d'une des 24 carrières pour la **première** carrière (`"random"` / absent = aléatoire).
@@ -145,7 +152,8 @@ Kemp), contenu Open Gaming sous OGL — PDF sur DriveThruRPG, miroir HTML/markdo
 `src/book3/worlds.md` pour les codes commerciaux). `cepheus/data/careers.json` est généré depuis
 ce SRD par `tools/parse_srd_careers.py`.
 Mondes du homeworld : API publique **TravellerMap** (<https://travellermap.com/doc/api>),
-interrogée à l'exécution et mise en cache localement — aucun monde inventé ; repli synthétique
-signalé `"source": "synthetic"` si l'API est indisponible.
+interrogée à l'exécution et mise en cache localement — aucun monde inventé.
+Espèces non humaines : espèces officielles du SRD, chapitre 1 « On Alien Species » (Avians, Espers,
+Insectans, Merfolk, Reptilians) + psionics chapitre 3 (PSI = 2D6 − termes servis).
 Les titres de produits et marques (Cepheus Engine, Samardan Press) restent la propriété de leurs
 ayants droit ; le code de ce dépôt est sous la licence du dépôt.

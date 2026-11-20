@@ -28,6 +28,10 @@ from cepheus import __version__, data, travellermap
 from cepheus.character import Generator, batch_seeds, resolve_career
 from cepheus.dice import Rng
 
+
+def _valid_species(v):
+    return isinstance(v, str) and data.resolve_species(v) is not None
+
 STORE = {}
 STORE_LOCK = threading.Lock()
 
@@ -44,6 +48,7 @@ OPTION_RULES = {
     "background_skills": lambda v: isinstance(v, bool),
     "homeworld": lambda v: isinstance(v, bool),
     "sector": lambda v: isinstance(v, str) and 1 <= len(v) <= 60,
+    "species": _valid_species,
     "name": lambda v: isinstance(v, str) and 1 <= len(v) <= 60,
     "gender": lambda v: v in ("M", "F"),
 }
@@ -150,6 +155,7 @@ class Handler(BaseHTTPRequestHandler):
                     "GET /api/characters/<id>/text",
                     "GET /api/worlds/sectors",
                     "GET /api/worlds/random?sector=<name>&seed=<int>",
+                    "GET /api/species",
                 ],
             })
         elif path == "/api/health":
@@ -163,6 +169,11 @@ class Handler(BaseHTTPRequestHandler):
                 self._error(404, f"unknown career: {key}")
             else:
                 self._send_json(career)
+        elif path == "/api/species":
+            self._send_json({"species": [
+                {"key": k, "name": s["name"], "traits": s["traits"], "maturity": s["maturity"],
+                 "ageing_starts": s["ageing_starts"], "char_rolls": s["char_rolls"]}
+                for k, s in data.SPECIES.items()]})
         elif path == "/api/worlds/sectors":
             try:
                 self._send_json({"sectors": travellermap.list_sectors()})

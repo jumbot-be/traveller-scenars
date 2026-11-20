@@ -123,18 +123,17 @@ class TestHomeworldIntegration(unittest.TestCase):
         self.assertIn(bases[0], {"Gun Combat", "Melee Combat"})  # law 12 -> High Law -> Melee Combat
         self.assertIn(bases[1], {"Computer", "Streetwise", "Broker"})  # Ht/Hi/In trade codes
 
-    def test_homeworld_fallback_synthetic(self):
+    def test_homeworld_api_down_no_synthetic_fallback(self):
         with mock.patch("cepheus.character.travellermap.random_world", return_value=None):
             c = generate_character(seed=5, options={"homeworld": True})
-        self.assertEqual(c["homeworld"]["source"], "synthetic")
-        self.assertIsNotNone(c["homeworld"]["tl"])
+        self.assertIsNone(c["homeworld"])
         self.assertTrue(any("TravellerMap" in h for h in c["history"]))
 
-    def test_homeworld_on_by_default(self):
+    def test_homeworld_on_by_default_api_down(self):
         with mock.patch("cepheus.character.travellermap.random_world", return_value=None):
             c = generate_character(seed=5)
-        self.assertIsNotNone(c["homeworld"])
-        self.assertEqual(c["homeworld"]["source"], "synthetic")
+        self.assertIsNone(c["homeworld"])  # no synthetic fallback: official worlds only
+        self.assertTrue(any("TravellerMap" in h for h in c["history"]))
 
     def test_homeworld_disabled(self):
         c = generate_character(seed=5, options={"homeworld": False})
