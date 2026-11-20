@@ -22,10 +22,11 @@ import re
 import threading
 import uuid
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
-from urllib.parse import urlparse
+from urllib.parse import parse_qs, urlparse
 
-from cepheus import __version__, data
+from cepheus import __version__, data, travellermap
 from cepheus.character import Generator, batch_seeds, resolve_career
+from cepheus.dice import Rng
 
 STORE = {}
 STORE_LOCK = threading.Lock()
@@ -42,6 +43,7 @@ OPTION_RULES = {
     "survival_mishap": lambda v: isinstance(v, bool),
     "background_skills": lambda v: isinstance(v, bool),
     "homeworld": lambda v: isinstance(v, bool),
+    "sector": lambda v: isinstance(v, str) and 1 <= len(v) <= 60,
     "name": lambda v: isinstance(v, str) and 1 <= len(v) <= 60,
     "gender": lambda v: v in ("M", "F"),
 }
@@ -146,6 +148,8 @@ class Handler(BaseHTTPRequestHandler):
                     "GET /api/characters",
                     "GET /api/characters/<id>",
                     "GET /api/characters/<id>/text",
+                    "GET /api/worlds/sectors",
+                    "GET /api/worlds/random?sector=<name>&seed=<int>",
                 ],
             })
         elif path == "/api/health":
@@ -159,6 +163,25 @@ class Handler(BaseHTTPRequestHandler):
                 self._error(404, f"unknown career: {key}")
             else:
                 self._send_json(career)
+        elif path == "/api/worlds/sectors":
+            try:
+                self._send_json({"sectors": travellermap.list_sectors()})
+            except Exception as e:
+                self._error(502, f"TravellerMap API unreachable: {e}")
+        elif path == "/api/worlds/random":
+            q = parse_qs(urlparse(self.path).query)
+            sector = q.get("sector", [None])[0]
+            seed = q.get("seed", [None])[0]
+            try:
+                seed = int(seed) if seed is not None else None
+            except ValueError:
+                self._error(400, "seed must be an integer")
+                return
+            world = travellermap.random_world(Rng(seed), sector=sector)
+            if world is None:
+                self._error(502, "TravellerMap API unreachable or no inhabited world found")
+            else:
+                self._send_json(world)
         elif path == "/api/characters":
             with STORE_LOCK:
                 self._send_json({"characters": [character_summary(c["json"]) for c in STORE.values()]})

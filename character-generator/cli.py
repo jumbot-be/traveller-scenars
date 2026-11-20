@@ -23,7 +23,8 @@ def main():
     p.add_argument("--p-new-career", type=float, default=DEFAULT_OPTIONS["p_new_career"])
     p.add_argument("--p-draft", type=float, default=DEFAULT_OPTIONS["p_draft"])
     p.add_argument("--survival-mishap", action="store_true", help="optional rule: mishap instead of death on failed survival")
-    p.add_argument("--homeworld", action="store_true", help="generate a random homeworld UWP")
+    p.add_argument("--homeworld", action="store_true", help="pick a real homeworld from the TravellerMap API")
+    p.add_argument("--sector", default=None, help="sector name/abbreviation for the homeworld (e.g. 'Spinward Marches', 'spin')")
     p.add_argument("--no-background", action="store_true", help="skip background skills")
     p.add_argument("--name", default=None)
     p.add_argument("--gender", choices=["M", "F"], default=None)
@@ -45,6 +46,7 @@ def main():
         "survival_mishap": args.survival_mishap,
         "background_skills": not args.no_background,
         "homeworld": args.homeworld,
+        "sector": args.sector,
         "name": args.name,
         "gender": args.gender,
     }

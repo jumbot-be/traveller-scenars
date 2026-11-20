@@ -10,7 +10,7 @@ Checklist" (Cepheus Engine SRD, chapter 1, p.21-22) step by step:
 import random
 import re
 
-from . import data
+from . import data, travellermap
 from .dice import Rng
 
 
@@ -29,7 +29,8 @@ DEFAULT_OPTIONS = {
     "p_draft": 0.5,            # chance to submit to the Draft on failed qualification
     "survival_mishap": False,  # optional rule: mishap table instead of death
     "background_skills": True, # step 2 (homeworld step, optional in the SRD)
-    "homeworld": False,        # generate a random homeworld UWP for flavor
+    "homeworld": False,        # pick a real homeworld from the TravellerMap API
+    "sector": None,            # optional sector name/abbreviation for the homeworld
     "name": None,
     "gender": None,
 }
@@ -160,6 +161,8 @@ class Generator:
     # ------------------------------------------------------------- chargen
     def generate(self):
         self._roll_characteristics()
+        if self.opts["homeworld"]:
+            self._pick_homeworld()
         if self.opts["background_skills"]:
             self._background_skills()
         while self.alive:
@@ -193,16 +196,43 @@ class Generator:
             self.chars[c] = sum(dice)
             self.say(f"{c}: 2D6={dice} -> {self.chars[c]} (DM{data.dm(self.chars[c]):+d})")
 
+    def _pick_homeworld(self):
+        world = travellermap.random_world(self.rng, sector=self.opts.get("sector"))
+        if world is None:
+            world = self._synthetic_homeworld()
+            self.say("TravellerMap API unreachable: synthetic homeworld (flagged 'synthetic')")
+        else:
+            self.say(f"Homeworld from TravellerMap: {world['name']} ({world['sector']} {world['hex']}) "
+                     f"UWP {world['uwp']} TL {world['tl']} trade codes: {', '.join(world['trade_codes']) or 'none'}")
+        self.homeworld = world
+
+    def _synthetic_homeworld(self):
+        rng = self.rng
+        starport = rng.choice("ABCDEX")
+        size = data.pseudohex(rng.d6_sum() % 11) if rng.random() < 0.9 else "0"
+        atmo = data.pseudohex(min(15, rng.d6_sum() - 1)) if size != "0" else "0"
+        hydro = data.pseudohex(min(10, rng.d6_sum() % 11)) if atmo not in ("0", "1", "A", "B", "C") else "0"
+        pop = data.pseudohex(min(10, rng.d6_sum() % 11))
+        gov = data.pseudohex(min(15, rng.d6_sum() - 1))
+        law = data.pseudohex(min(18, rng.d6_sum() - 1))
+        tl = data.pseudohex(min(15, max(0, rng.d6_sum() + rng.d6_sum() - 7)))
+        name = "".join(rng.choice(data.WORLD_SYLLABLES) for _ in range(2))
+        uwp = f"{starport}{size}{atmo}{hydro}{pop}{gov}{law}-{tl}"
+        return travellermap.normalize_world({"name": name, "uwp": uwp, "source": "synthetic"})
+
     def _background_skills(self):
         n = max(1, 3 + self.dm("EDU"))
-        if self.opts["homeworld"]:
-            self.homeworld = self._random_homeworld()
-            pool = list(data.HOMEWORLD_TRADE_SKILLS.values()) + list(set(data.HOMEWORLD_LAW_SKILLS.values()))
-            picks = self.rng.shuffle(pool)[:2]
-            rest = self.rng.shuffle(data.EDUCATION_SKILLS)
-        else:
-            picks = []
-            rest = self.rng.shuffle(data.EDUCATION_SKILLS)
+        picks = []
+        if self.homeworld:
+            hw = self.homeworld
+            picks.append(data.HOMEWORLD_LAW_SKILLS.get(hw["law_descriptor"], "Gun Combat"))
+            trade_skills = [data.HOMEWORLD_TRADE_SKILLS[c] for c in hw["trade_codes"]
+                            if c in data.HOMEWORLD_TRADE_SKILLS]
+            if trade_skills:
+                picks.append(self.rng.choice(trade_skills))
+            self.say(f"Homeworld skills from {hw['name']}: law {hw['law_descriptor']}, "
+                     f"TL {hw['tl']}, trade codes {', '.join(hw['trade_codes']) or 'none'}")
+        rest = self.rng.shuffle(data.EDUCATION_SKILLS)
         chosen = []
         for name in picks + rest:
             if len(chosen) >= n:
@@ -214,19 +244,6 @@ class Generator:
             self.set_skill0(name)
         self.background = chosen
         self.say(f"Background skills ({n} = 3 + EDU DM): {', '.join(k + '-0' for k in chosen)}")
-
-    def _random_homeworld(self):
-        rng = self.rng
-        starport = rng.choice("ABCDEX")
-        size = data.pseudohex(rng.d6_sum() % 11) if rng.random() < 0.9 else "0"
-        atmo = data.pseudohex(min(15, rng.d6_sum() - 1)) if size not in ("0",) else "0"
-        hydro = data.pseudohex(min(10, rng.d6_sum() % 11)) if atmo not in ("0", "1", "A", "B", "C") else "0"
-        pop = data.pseudohex(min(10, rng.d6_sum() % 11))
-        gov = data.pseudohex(min(15, rng.d6_sum() - 1))
-        law = data.pseudohex(min(18, rng.d6_sum() - 1))
-        tl = data.pseudohex(min(15, max(0, rng.d6_sum() + rng.d6_sum() - 7)))
-        name = "".join(rng.choice(data.WORLD_SYLLABLES) for _ in range(2))
-        return {"name": name, "upp": f"{starport}{size}{atmo}{hydro}{pop}{gov}{law}-{tl}"}
 
     def _qualify(self, career):
         if self.crisis:
@@ -530,6 +547,12 @@ class Generator:
         d = self.to_dict()
         lines = []
         lines.append(f"{d['name']} {d['upp']} Age {d['age']}")
+        if d["homeworld"]:
+            hw = d["homeworld"]
+            loc = f"{hw['sector']} {hw['hex']}" if hw.get("sector") else "synthetic"
+            tl = data.pseudohex(hw["tl"]) if hw.get("tl") is not None else "?"
+            codes = ", ".join(hw.get("trade_codes") or []) or "none"
+            lines.append(f"Homeworld: {hw['name']} ({loc}) {hw['uwp']} TL {tl} [{codes}]")
         careers = ", ".join(f"{c['career']} ({c['terms_served']} term{'s' if c['terms_served'] != 1 else ''})" for c in d["careers"])
         lines.append(f"{careers} Cr{d['credits']:,}")
         skills = ", ".join(f"{k}-{v}" for k, v in d["skills"].items())

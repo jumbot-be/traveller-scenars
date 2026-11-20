@@ -5,8 +5,10 @@ import urllib.error
 import urllib.request
 from http.server import ThreadingHTTPServer
 
+from unittest import mock
+
 import server
-from cepheus import data
+from cepheus import data, travellermap
 from cepheus.character import generate_character
 
 
@@ -124,6 +126,34 @@ class ServerTestCase(unittest.TestCase):
         status, body = self.get("/api/characters/000000000000")
         self.assertEqual(status, 404)
         self.assertIn("error", body)
+
+    def test_homeworld_option_with_travellermap(self):
+        world = travellermap.normalize_world({
+            "name": "Regina", "hex": "1910", "sector": "Spinward Marches",
+            "uwp": "A788A9C-E", "remarks": "Hi In", "source": "travellermap"})
+        with mock.patch("cepheus.character.travellermap.random_world", return_value=world):
+            status, body = self.post("/api/characters", {"seed": 3, "homeworld": True, "sector": "Spinward Marches"})
+        self.assertEqual(status, 201)
+        c = body["characters"][0]
+        self.assertEqual(c["homeworld"]["name"], "Regina")
+        self.assertEqual(c["homeworld"]["tl"], 14)
+        status, body = self.post("/api/characters", {"sector": 123})
+        self.assertEqual(status, 400)
+
+    def test_worlds_endpoints(self):
+        world = travellermap.normalize_world({
+            "name": "Regina", "hex": "1910", "sector": "Spinward Marches",
+            "uwp": "A788A9C-E", "remarks": "Hi In", "source": "travellermap"})
+        with mock.patch.object(travellermap, "random_world", return_value=world):
+            status, body = self.get("/api/worlds/random?sector=Spinward%20Marches&seed=9")
+        self.assertEqual(status, 200)
+        self.assertEqual(body["name"], "Regina")
+        self.assertEqual(body["tl"], 14)
+        status, body = self.get("/api/worlds/random?seed=abc")
+        self.assertEqual(status, 400)
+        with mock.patch.object(travellermap, "random_world", return_value=None):
+            status, body = self.get("/api/worlds/random")
+        self.assertEqual(status, 502)
 
     def test_all_careers_generate(self):
         for career in data.CAREERS:

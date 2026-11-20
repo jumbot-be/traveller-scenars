@@ -9,7 +9,7 @@ puis l'affichera. Prochaines extensions prévues : véhicules (VDS), vaisseaux, 
 ## Règles implémentées (checklist SRD, chapitre 1)
 
 1. **Caractéristiques** : 2D6 pour STR, DEX, END, INT, EDU, SOC ; DM = ⌊score/3⌋ − 2 ; UPP en pseudo-hex (`687B9C`). Âge de départ 18, caractéristiques plafonnées à 15.
-2. **Monde natal (optionnel)** : compétences de background = `3 + DM EDU` au niveau 0 (2 premières liées au monde natal si `--homeworld`, le reste depuis la liste d'éducation).
+2. **Monde natal (optionnel)** : compétences de background = `3 + DM EDU` au niveau 0. Si `homeworld` est activé, le monde natal est un **vrai monde pioché via l'API TravellerMap** (`/api/universe` + `/api/sec`, cache local dans `~/.cache/traveller-character-api`, repli sur un monde synthétique signalé `"source": "synthetic"` si l'API est injoignable). Ses 2 premières compétences de background viennent de son **niveau de loi** et de ses **codes commerciaux**, dérivés de son UWP selon le SRD (chapitre Worlds) — et le **TL du monde joue donc sur la génération** : TL 12+ → code *High Technology* → compétence Computer-0, TL ≤ 5 → *Low Technology* → Survival-0, etc. Le TL et les codes sont exposés dans `homeworld` (avec `url` vers la carte TravellerMap) et dans la fiche texte.
 3. **Carrière** : 24 carrières du SRD (voir `cepheus/data/careers.json`, parsé depuis le SRD par `tools/parse_srd_careers.py`). Jet de qualification `2D6 + DM carac − 2 × carrières précédentes` ; en cas d'échec : Drifter ou Tirage au sort (une seule fois). On ne peut pas reprendre une carrière quittée (sauf Drifter).
 4. **Formation de base** : 1ʳᵉ carrière → toutes les compétences du tableau Service à 0 ; carrières suivantes → une au choix.
 5. **Survie** : `2D6 + DM ≥ cible` de la carrière ; un 2 naturel est toujours un échec → **mort** (règle optionnelle `survival_mishap` : table des mésaventures, demi-terme, pas de bénéfice pour ce terme).
@@ -34,6 +34,7 @@ character-generator/
 │   ├── dice.py                RNG seedé (reproductible)
 │   ├── data.py                règles statiques SRD (vieillissement, blessures, draft, cascades...)
 │   ├── data/careers.json      les 24 carrières (généré depuis le SRD)
+│   ├── travellermap.py        client API TravellerMap (vrais mondes, cache, codes commerciaux/TL)
 │   └── character.py           moteur de génération (Generator)
 ├── tools/
 │   └── parse_srd_careers.py   parseur SRD -> cepheus/data/careers.json
@@ -69,6 +70,8 @@ python3 server.py --host 127.0.0.1 --port 8080
 | GET | `/api/characters` | liste des personnages générés (résumés) |
 | GET | `/api/characters/<id>` | fiche complète JSON d'un personnage |
 | GET | `/api/characters/<id>/text` | fiche en texte brut (format "Universal Character Format") |
+| GET | `/api/worlds/sectors` | liste des secteurs TravellerMap (officiels) |
+| GET | `/api/worlds/random?sector=<nom>&seed=<int>` | un monde réel aléatoire (UWP, TL, codes commerciaux) |
 
 ### `POST /api/characters`
 
@@ -86,10 +89,15 @@ Corps JSON optionnel (tous les champs sont optionnels) :
   "survival_mishap": false,
   "background_skills": true,
   "homeworld": false,
+  "sector": "Spinward Marches",
   "name": "Rio Zhaleo",
   "gender": "M"
 }
 ```
+
+- `homeworld: true` → monde natal réel via TravellerMap ; `sector` (optionnel) force un secteur
+  (nom ou abréviation, ex. `"Spinward Marches"` / `"spin"`). Le TL du monde pilote les codes
+  commerciaux, donc les compétences de background (voir règle 2 ci-dessus).
 
 - `seed` : entier → génération reproductible (les seeds enfants sont dérivés du seed du lot).
 - `career` : clé ou nom d'une des 24 carrières pour la **première** carrière (`"random"` / absent = aléatoire).
@@ -103,7 +111,11 @@ Exemple :
 ```sh
 curl -s -X POST http://127.0.0.1:8080/api/characters \
   -H 'Content-Type: application/json' \
-  -d '{"count": 1, "seed": 2024, "career": "scout"}' | python3 -m json.tool
+  -d '{"count": 1, "seed": 2024, "career": "scout", "homeworld": true, "sector": "Spinward Marches"}' \
+  | python3 -m json.tool
+
+# un monde réel à la volée (utile pour le bot Discord)
+curl -s 'http://127.0.0.1:8080/api/worlds/random?sector=Spinward%20Marches&seed=42' | python3 -m json.tool
 ```
 
 Réponse `201` : `{"characters": [ { ...fiche complète..., "id": "14bf9ff47920" } ]}`.
@@ -122,7 +134,11 @@ la fiche (JSON ou `/text`) dans le salon. Le serveur écoute par défaut sur `12
 
 Règles et tables : **Cepheus Engine System Reference Document**, Samardan Press (Jason "Flynn"
 Kemp), contenu Open Gaming sous OGL — PDF sur DriveThruRPG, miroir HTML/markdown :
-<https://github.com/orffen/cepheus-srd> (`src/book1/character-creation.md`, `src/book1/skills.md`).
-`cepheus/data/careers.json` est généré depuis ce SRD par `tools/parse_srd_careers.py`.
+<https://github.com/orffen/cepheus-srd> (`src/book1/character-creation.md`, `src/book1/skills.md`,
+`src/book3/worlds.md` pour les codes commerciaux). `cepheus/data/careers.json` est généré depuis
+ce SRD par `tools/parse_srd_careers.py`.
+Mondes du homeworld : API publique **TravellerMap** (<https://travellermap.com/doc/api>),
+interrogée à l'exécution et mise en cache localement — aucun monde inventé ; repli synthétique
+signalé `"source": "synthetic"` si l'API est indisponible.
 Les titres de produits et marques (Cepheus Engine, Samardan Press) restent la propriété de leurs
 ayants droit ; le code de ce dépôt est sous la licence du dépôt.
