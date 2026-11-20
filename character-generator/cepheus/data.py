@@ -129,6 +129,12 @@ TRADE_CODE_INFO = {
 }
 
 
+# Starport classes (CE SRD, chapter "Worlds", "Starport Class Services").
+STARPORT_CLASS = {
+    "A": "Excellent", "B": "Good", "C": "Routine", "D": "Poor", "E": "Frontier", "X": "None",
+}
+
+
 def trade_code_label(name):
     """'Garden' -> 'Ga Garden - Monde de type terrestre, vegetation abondante'."""
     info = TRADE_CODE_INFO.get(name)

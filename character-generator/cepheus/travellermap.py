@@ -259,6 +259,7 @@ def normalize_world(raw):
         "subsector": raw.get("subsector"),
         "uwp": raw.get("uwp"),
         "starport": uwp["starport"],
+        "starport_class": data.STARPORT_CLASS.get(uwp["starport"]),
         "size": uwp["size"],
         "atmosphere": uwp["atmosphere"],
         "hydrosphere": uwp["hydrosphere"],

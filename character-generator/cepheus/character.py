@@ -551,8 +551,19 @@ class Generator:
             hw = d["homeworld"]
             loc = f"{hw['sector']} {hw['hex']}" if hw.get("sector") else "synthetic"
             tl = data.pseudohex(hw["tl"]) if hw.get("tl") is not None else "?"
+            lines.append(f"Homeworld: {hw['name']} ({loc}) - TL {tl}")
+            fields = []
+            if hw.get("starport"):
+                sp = data.STARPORT_CLASS.get(hw["starport"])
+                fields.append(f"spatioport {hw['starport']}" + (f" ({sp})" if sp else ""))
+            for key, label in (("size", "taille"), ("atmosphere", "atmosphere"), ("hydrosphere", "hydrosphere"),
+                               ("population", "population"), ("government", "gouvernement")):
+                if hw.get(key) is not None:
+                    fields.append(f"{label} {data.pseudohex(hw[key])}")
+            if hw.get("law") is not None:
+                fields.append(f"loi {data.pseudohex(hw['law'])} ({hw.get('law_descriptor')})")
+            lines.append(f"  UWP: {hw.get('uwp') or '?'} ({', '.join(fields)})")
             codes = "; ".join(data.trade_code_label(c) for c in hw.get("trade_codes") or []) or "aucun"
-            lines.append(f"Homeworld: {hw['name']} ({loc}) {hw['uwp']} TL {tl}")
             lines.append(f"  Codes commerciaux: {codes}")
         careers = ", ".join(f"{c['career']} ({c['terms_served']} term{'s' if c['terms_served'] != 1 else ''})" for c in d["careers"])
         lines.append(f"{careers} Cr{d['credits']:,}")

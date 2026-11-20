@@ -157,7 +157,7 @@ class TestHomeworldIntegration(unittest.TestCase):
         self.assertEqual(c["homeworld"]["trade_code_details"][0]["name"], c["homeworld"]["trade_codes"][0])
         text = g.to_text()
         self.assertIn("Spirelle", text)
-        self.assertIn("C766846-8", text)
+        self.assertIn("UWP: C766846-8 (spatioport C (Routine), taille 7, atmosphere 6, hydrosphere 6, population 8, gouvernement 4, loi 6 (Medium Law))", text)
         self.assertIn("Ga Garden - ", text)
         self.assertIn("Codes commerciaux:", text)
 
