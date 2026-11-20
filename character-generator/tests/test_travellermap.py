@@ -124,10 +124,15 @@ class TestHomeworldIntegration(unittest.TestCase):
         self.assertIn(bases[1], {"Computer", "Streetwise", "Broker"})  # Ht/Hi/In trade codes
 
     def test_homeworld_api_down_no_synthetic_fallback(self):
+        from cepheus.character import Generator
         with mock.patch("cepheus.character.travellermap.random_world", return_value=None):
             c = generate_character(seed=5, options={"homeworld": True})
+            g = Generator(seed=5, options={"homeworld": True})
+            g.generate()
         self.assertIsNone(c["homeworld"])
+        self.assertIsNotNone(c["homeworld_error"])
         self.assertTrue(any("TravellerMap" in h for h in c["history"]))
+        self.assertIn("Homeworld: indisponible", g.to_text())
 
     def test_homeworld_on_by_default_api_down(self):
         with mock.patch("cepheus.character.travellermap.random_world", return_value=None):

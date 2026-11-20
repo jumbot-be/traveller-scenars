@@ -23,7 +23,7 @@ from . import data
 
 API_BASE = "https://travellermap.com/api"
 USER_AGENT = "traveller-character-api/0.1 (+https://github.com/jumbot-be/traveller-scenars)"
-DEFAULT_TIMEOUT = 20
+DEFAULT_TIMEOUT = 12
 CACHE_TTL = 7 * 24 * 3600
 
 
@@ -35,8 +35,14 @@ def cache_dir():
 def _fetch(url, timeout=DEFAULT_TIMEOUT):
     req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT,
                                                 "Accept": "application/json"})
-    with urllib.request.urlopen(req, timeout=timeout) as r:
-        return r.read()
+    last = None
+    for attempt in range(2):  # one retry
+        try:
+            with urllib.request.urlopen(req, timeout=timeout) as r:
+                return r.read()
+        except Exception as e:
+            last = e
+    raise last
 
 
 def _fetch_json(url, timeout=DEFAULT_TIMEOUT):
@@ -316,5 +322,5 @@ def random_world(rng, sector=None, official_only=True):
         if not worlds:
             return None
         return rng.choice(worlds)
-    except (urllib.error.URLError, ValueError, KeyError, OSError):
+    except (urllib.error.URLError, ValueError, KeyError, OSError, TimeoutError):
         return None

@@ -88,6 +88,7 @@ class Generator:
         self.draft_used = False
         self.background = []
         self.homeworld = None
+        self.homeworld_error = None
         self.log = []
 
     # ------------------------------------------------------------------ util
@@ -229,7 +230,8 @@ class Generator:
     def _pick_homeworld(self):
         world = travellermap.random_world(self.rng, sector=self.opts.get("sector"))
         if world is None:
-            self.say("TravellerMap API unreachable: no homeworld (homeworld skipped)")
+            self.homeworld_error = "TravellerMap API unreachable (or unknown sector): no homeworld"
+            self.say(f"Homeworld indisponible: {self.homeworld_error}")
         else:
             self.say(f"Homeworld from TravellerMap: {world['name']} ({world['sector']} {world['hex']}) "
                      f"UWP {world['uwp']} TL {world['tl']} trade codes: {', '.join(world['trade_codes']) or 'none'}")
@@ -573,6 +575,7 @@ class Generator:
             } for c in self.careers],
             "background_skills": self.background,
             "homeworld": self.homeworld,
+            "homeworld_error": self.homeworld_error,
             "credits": self.credits,
             "debt": self.debt,
             "passages": self.passages,
@@ -592,6 +595,8 @@ class Generator:
             lines.append("Traits: " + ", ".join(d["traits"]))
         if d["appearance"]:
             lines.append(f"Apparence: {d['appearance']['height_cm']} cm, {d['appearance']['mass_kg']} kg")
+        if not d["homeworld"] and d.get("homeworld_error"):
+            lines.append(f"Homeworld: indisponible ({d['homeworld_error']})")
         if d["homeworld"]:
             hw = d["homeworld"]
             loc = f"{hw['sector']} {hw['hex']}" if hw.get("sector") else "?"
