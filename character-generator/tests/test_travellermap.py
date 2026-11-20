@@ -130,8 +130,14 @@ class TestHomeworldIntegration(unittest.TestCase):
         self.assertIsNotNone(c["homeworld"]["tl"])
         self.assertTrue(any("TravellerMap" in h for h in c["history"]))
 
-    def test_no_homeworld_by_default(self):
-        c = generate_character(seed=5)
+    def test_homeworld_on_by_default(self):
+        with mock.patch("cepheus.character.travellermap.random_world", return_value=None):
+            c = generate_character(seed=5)
+        self.assertIsNotNone(c["homeworld"])
+        self.assertEqual(c["homeworld"]["source"], "synthetic")
+
+    def test_homeworld_disabled(self):
+        c = generate_character(seed=5, options={"homeworld": False})
         self.assertIsNone(c["homeworld"])
 
     def test_trade_code_details_in_sheet(self):

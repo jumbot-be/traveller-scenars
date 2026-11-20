@@ -19,9 +19,13 @@ class ServerTestCase(unittest.TestCase):
         cls.port = cls.httpd.server_address[1]
         cls.thread = threading.Thread(target=cls.httpd.serve_forever, daemon=True)
         cls.thread.start()
+        # hermetic: homeworld is on by default, avoid real TravellerMap calls
+        cls.tm_patcher = mock.patch("cepheus.character.travellermap.random_world", return_value=None)
+        cls.tm_patcher.start()
 
     @classmethod
     def tearDownClass(cls):
+        cls.tm_patcher.stop()
         cls.httpd.shutdown()
         cls.httpd.server_close()
 

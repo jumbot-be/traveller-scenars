@@ -29,7 +29,7 @@ DEFAULT_OPTIONS = {
     "p_draft": 0.5,            # chance to submit to the Draft on failed qualification
     "survival_mishap": False,  # optional rule: mishap table instead of death
     "background_skills": True, # step 2 (homeworld step, optional in the SRD)
-    "homeworld": False,        # pick a real homeworld from the TravellerMap API
+    "homeworld": True,         # pick a real homeworld from the TravellerMap API (False to disable)
     "sector": None,            # optional sector name/abbreviation for the homeworld
     "name": None,
     "gender": None,

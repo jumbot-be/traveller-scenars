@@ -9,7 +9,7 @@ puis l'affichera. Prochaines extensions prévues : véhicules (VDS), vaisseaux, 
 ## Règles implémentées (checklist SRD, chapitre 1)
 
 1. **Caractéristiques** : 2D6 pour STR, DEX, END, INT, EDU, SOC ; DM = ⌊score/3⌋ − 2 ; UPP en pseudo-hex (`687B9C`). Âge de départ 18, caractéristiques plafonnées à 15.
-2. **Monde natal (optionnel)** : compétences de background = `3 + DM EDU` au niveau 0. Si `homeworld` est activé, le monde natal est un **vrai monde pioché via l'API TravellerMap** (`/api/universe` + `/api/sec`, cache local dans `~/.cache/traveller-character-api`, repli sur un monde synthétique signalé `"source": "synthetic"` si l'API est injoignable). Ses 2 premières compétences de background viennent de son **niveau de loi** et de ses **codes commerciaux**, dérivés de son UWP selon le SRD (chapitre Worlds) — et le **TL du monde joue donc sur la génération** : TL 12+ → code *High Technology* → compétence Computer-0, TL ≤ 5 → *Low Technology* → Survival-0, etc. Le TL et les codes sont exposés dans `homeworld` (avec `url` vers la carte TravellerMap) et dans la fiche texte ; chaque code commercial apparaît avec son code court, sa condition UWP (SRD) et sa description, p. ex. :
+2. **Monde natal (activé par défaut, `homeworld: false` / `--no-homeworld` pour désactiver)** : compétences de background = `3 + DM EDU` au niveau 0. Le monde natal est un **vrai monde pioché via l'API TravellerMap** (`/api/universe` + `/api/sec`, cache local dans `~/.cache/traveller-character-api`, repli sur un monde synthétique signalé `"source": "synthetic"` si l'API est injoignable). Ses 2 premières compétences de background viennent de son **niveau de loi** et de ses **codes commerciaux**, dérivés de son UWP selon le SRD (chapitre Worlds) — et le **TL du monde joue donc sur la génération** : TL 12+ → code *High Technology* → compétence Computer-0, TL ≤ 5 → *Low Technology* → Survival-0, etc. Le TL et les codes sont exposés dans `homeworld` (avec `url` vers la carte TravellerMap) et dans la fiche texte ; chaque code commercial apparaît avec son code court, sa condition UWP (SRD) et sa description, p. ex. :
 `Homeworld: Spirelle (Spin 1927) C766846-8 TL 8` / `Codes commerciaux: Ga Garden - Monde de type terrestre, vegetation abondante; Ri Rich - Niveau de vie eleve...`
 Dans le JSON, `homeworld.trade_code_details` = liste `{name, code, condition, description}`.
 3. **Carrière** : 24 carrières du SRD (voir `cepheus/data/careers.json`, parsé depuis le SRD par `tools/parse_srd_careers.py`). Jet de qualification `2D6 + DM carac − 2 × carrières précédentes` ; en cas d'échec : Drifter ou Tirage au sort (une seule fois). On ne peut pas reprendre une carrière quittée (sauf Drifter).
@@ -51,8 +51,9 @@ cd character-generator
 # tests
 python3 -m unittest discover -s tests -v
 
-# CLI : un personnage reproductible en texte
+# CLI : un personnage reproductible en texte (homeworld reel TravellerMap par defaut)
 python3 cli.py --seed 42 --text
+python3 cli.py --count 1 --text --no-homeworld   # sans monde natal
 
 # CLI : 5 personnages JSON, carrière forcée
 python3 cli.py --count 5 --career marine --out persos.json
@@ -90,16 +91,16 @@ Corps JSON optionnel (tous les champs sont optionnels) :
   "p_draft": 0.5,
   "survival_mishap": false,
   "background_skills": true,
-  "homeworld": false,
+  "homeworld": true,
   "sector": "Spinward Marches",
   "name": "Rio Zhaleo",
   "gender": "M"
 }
 ```
 
-- `homeworld: true` → monde natal réel via TravellerMap ; `sector` (optionnel) force un secteur
-  (nom ou abréviation, ex. `"Spinward Marches"` / `"spin"`). Le TL du monde pilote les codes
-  commerciaux, donc les compétences de background (voir règle 2 ci-dessus).
+- `homeworld` : `true` par défaut → monde natal réel via TravellerMap ; `sector` (optionnel) force
+  un secteur (nom ou abréviation, ex. `"Spinward Marches"` / `"spin"`). Le TL du monde pilote les
+  codes commerciaux, donc les compétences de background (voir règle 2 ci-dessus).
 
 - `seed` : entier → génération reproductible (les seeds enfants sont dérivés du seed du lot).
 - `career` : clé ou nom d'une des 24 carrières pour la **première** carrière (`"random"` / absent = aléatoire).

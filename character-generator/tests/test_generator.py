@@ -1,4 +1,5 @@
 import unittest
+from unittest import mock
 
 from cepheus import data
 from cepheus.character import Generator, batch_seeds, generate_character, resolve_career
@@ -46,6 +47,12 @@ class TestData(unittest.TestCase):
 
 
 class TestGeneration(unittest.TestCase):
+    def setUp(self):
+        # keep tests hermetic: no real TravellerMap calls (synthetic fallback)
+        patcher = mock.patch("cepheus.character.travellermap.random_world", return_value=None)
+        patcher.start()
+        self.addCleanup(patcher.stop)
+
     def test_determinism(self):
         a = gen(1234)
         b = gen(1234)
